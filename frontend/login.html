@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Login</h1>
+        </div>
+        
+        <form onsubmit="return validateForm()">
+            <div class="fieldTitle">
+                <h2>Email</h2>
+                <input id="emailip" type="email" class="input" placeholder="Email" required>
+            </div>
+            
+            <div class="fieldTitle">
+                <h2>Password</h2>
+                <input id="passip" type="password" class="input" placeholder="Password" required>
+            </div>
+
+            <div class="fieldTitle">
+                <button id="buttonip" class="log">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
