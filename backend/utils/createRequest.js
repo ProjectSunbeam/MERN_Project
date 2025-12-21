@@ -6,7 +6,7 @@ function createRequest(error,data){
   }
   else{
     res.status = "error"
-    res.data = error;
+    res.error = error;
   }
   return res;
 }
