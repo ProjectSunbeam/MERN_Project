@@ -1,0 +1,47 @@
+INSERT INTO users (name, email, password, mobile)
+VALUES ('Manthan Kore', 'manthan@gmail.com', 'mk', '1234567890');
+
+INSERT INTO users (name, email, password, mobile)
+VALUES ('Rushikesh Kharage', 'rushi@gmail.com', 'rk123', '9876543211');
+
+INSERT INTO users (name, email, password, mobile)
+VALUES ('Wajid Latpot', 'wajid@gmail.com', 'wl123', '9123456788');
+
+INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
+VALUES ('Manthan Kore', 'manthan@gmail.com', 101, '1234567890', NULL);
+
+INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
+VALUES ('Rushikesh Kharage', 'rushi@gmail.com', 102, '2234567890', NULL);
+
+INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
+VALUES ('Wajid Latpot', 'wajid@gmail.com', 103, '9123456788', NULL);
+
+-- Example: Wajid in another course
+INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
+VALUES ('Wajid Latpot', 'wajid@gmail.com', 104, '9123456788', NULL);
+
+
+INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
+VALUES (101, 'Java Full Stack', 'Java, JDBC, Spring Boot, React', 25000, '2025-01-01', '2025-06-30', 180);
+
+INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
+VALUES (102, 'Web Development', 'HTML, CSS, JavaScript, MySQL', 15000, '2025-02-01', '2025-05-31', 120);
+
+INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
+VALUES (103, 'Python Programming', 'Core Python, OOP, File Handling', 18000, '2025-03-01', '2025-07-31', 150);
+
+INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
+VALUES (104, 'Data Structures', 'Arrays, Linked List, Stack, Queue, Trees', 12000, '2025-01-15', '2025-04-30', 90);
+
+
+INSERT INTO videos (course_id, title, description, youtube_url, added_at)
+VALUES (101, 'Java Introduction', 'Intro to Java', 'https://youtube.com/vid1', '2025-01-02');
+
+INSERT INTO videos (course_id, title, description, youtube_url, added_at)
+VALUES (101, 'Spring Boot Basics', 'Getting started with Spring Boot', 'https://youtube.com/vid2', '2025-01-10');
+
+INSERT INTO videos (course_id, title, description, youtube_url, added_at)
+VALUES (102, 'HTML & CSS', 'Basics of HTML and CSS', 'https://youtube.com/vid3', '2025-02-02');
+
+INSERT INTO videos (course_id, title, description, youtube_url, added_at)
+VALUES (103, 'Python OOP', 'Object-Oriented Python', 'https://youtube.com/vid4', '2025-03-05');
