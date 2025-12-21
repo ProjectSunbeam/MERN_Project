@@ -17,7 +17,7 @@ CREATE TABLE courses (
 );
 
 CREATE TABLE students (
-    reg_no INT PRIMARY KEY,
+    reg_no INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(20),
     email VARCHAR(50),
     course_id INT,
