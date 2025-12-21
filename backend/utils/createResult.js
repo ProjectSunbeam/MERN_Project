@@ -1,4 +1,4 @@
-function createRequest(error,data){
+function createResult(error,data){
   const res = {}
   if(data){
     res.status = "success";
@@ -11,4 +11,4 @@ function createRequest(error,data){
   return res;
 }
 
-module.exports = {createRequest}
+module.exports = {createResult}
