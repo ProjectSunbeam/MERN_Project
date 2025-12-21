@@ -1,8 +1,6 @@
 #MD File
 *.MD
 
-backend/db/pool.js
-
 # Logs
 logs
 *.log
