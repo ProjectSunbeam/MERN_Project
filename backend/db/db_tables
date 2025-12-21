@@ -37,3 +37,27 @@ CREATE TABLE videos (
     CONSTRAINT fk_video_course
         FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+
+-- for the reg no AUTO_INCREMENT
+ALTER TABLE students
+    MODIFY reg_no INT NOT NULL AUTO_INCREMENT;
+
+-- for the course id auto_increment 
+CONSTRAINT `videos_ibfk_1`
+FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`)
+
+ALTER TABLE videos
+DROP FOREIGN KEY videos_ibfk_1;
+
+ALTER TABLE courses
+MODIFY course_id INT NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE videos
+ADD CONSTRAINT videos_ibfk_1
+FOREIGN KEY (course_id)
+REFERENCES courses(course_id)
+ON DELETE CASCADE;
+
+DESC courses;
+DESC videos;
+
