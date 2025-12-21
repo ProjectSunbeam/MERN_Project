@@ -7,7 +7,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE courses (
-    course_id INT PRIMARY KEY,
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
     course_name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
     fees INT,
