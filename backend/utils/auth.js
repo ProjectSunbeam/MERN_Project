@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const result = require('./result');
+const result = require('./createResult');
 const config = require('./config');
 
 function authUser(req,res,next){
@@ -18,7 +18,7 @@ function authUser(req,res,next){
 
                 req.headers.uid = payload.uid;
                 req.headers.email = payload.email;
-
++
                 next();
 
             } catch (ex) {
