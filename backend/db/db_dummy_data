@@ -5,7 +5,6 @@ INSERT INTO courses (course_id, course_name, description, fees, start_date, end_
 (204, 'Data Structures', 'Arrays, Linked List, Stack, Queue, Trees', 12000, '2025-12-01', '2026-04-30', 250),
 (205, 'MERN Stack', 'MongoDB, Express, React, Node', 20000, '2025-12-01', '2026-12-31', 500);
 
-
 INSERT INTO users (uid, name, email, password, mobile) VALUES
 (1, 'Manthan Kore', 'manthan@gmail.com', 'mk', '1234567890'),
 (2, 'Rushikesh Kharage', 'rushi@gmail.com', 'rk123', '9876543211'),
