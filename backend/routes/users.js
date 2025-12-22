@@ -16,7 +16,7 @@ router.post('/signup',(req,res) =>{
     })
 })
 
-router.post('/signin',(req,res)=>{
+router.post('/signin',(req,res)=>{ 
     const {email,password} = req.body
     const hashedPassword = cryptojs.SHA256(password).toString()
     const sql =  `select * from users where email = ? and password = ?`
