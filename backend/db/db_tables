@@ -37,3 +37,5 @@ CREATE TABLE videos (
     CONSTRAINT fk_video_course
         FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+
+ALTER TABLE users ADD role ENUM('admin','student') DEFAULT 'student';
