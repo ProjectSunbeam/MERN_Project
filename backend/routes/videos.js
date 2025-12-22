@@ -24,5 +24,26 @@ router.post("/add",(req,res) =>{
     });
 });
 
+router.delete("/delete/:video_id",(req,res) =>{
+    const video_id = req.params.video_id;
+    const sql = `DELETE FROM videos WHERE video_id = ?`;
+    pool.query(sql,[video_id],(error,data) => {
+
+        res.send(request.createResult(error,data))
+    });
+});
+
+router.put("/update/:video_id",(req,res) =>{
+    const video_id = req.params.video_id;
+    const {title,youtube_url,description}  = req.body;
+    const sql = `UPDATE videos SET title = ? , youtube_url = ? , description = ? WHERE video_id = ?`;
+    pool.query(sql,[title,youtube_url,description,video_id],(error,data) => {
+
+        res.send(request.createResult(error,data))
+    });
+});
+
+
+
 
 module.exports = router;
