@@ -42,20 +42,34 @@ router.post("/add",(req,res)=>{
   })
 })
 
-router.put("/update",(req,res)=>{
-  const {course_name,description,fees,start_date,end_date,video_expire_days,course_id} = req.body
-  const sql = "update courses set course_name =? , description=? , fees=? , start_date=? , end_date=? , video_expire_days=? where course_id = ?";
-  pool.query(sql,[course_name,description,fees,start_date,end_date,video_expire_days,course_id],(error,data)=>{
-    res.send(request.createResult(error,data));
-  })
-})
+router.put("/update/:course_id", (req, res) => {
+  const { course_id } = req.params;
+  const { course_name, description, fees, start_date, end_date, video_expire_days } = req.body;
 
-router.delete("/delete",(req,res)=>{
-  const {course_id} = req.body;
-  const sql = "delete from courses where course_id = ?";
-  pool.query(sql,[course_id],(error,data)=>{
-    res.send(request.createResult(error,data));
-  })
-})
+  const sql = `
+    UPDATE courses 
+    SET course_name = ?, description = ?, fees = ?, start_date = ?, end_date = ?, video_expire_days = ?
+    WHERE course_id = ?
+  `;
+
+  pool.query(
+    sql,
+    [course_name, description, fees, start_date, end_date, video_expire_days, course_id],
+    (error, data) => {
+      res.send(request.createResult(error, data));
+    }
+  );
+});
+
+
+router.delete("/delete/:course_id", (req, res) => {
+  const { course_id } = req.params;
+
+  const sql = "DELETE FROM courses WHERE course_id = ?";
+
+  pool.query(sql, [course_id], (error, data) => {
+    res.send(request.createResult(error, data));
+  });
+});
 
 module.exports = router;
