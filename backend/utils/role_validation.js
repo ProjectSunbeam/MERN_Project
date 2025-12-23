@@ -12,4 +12,4 @@ function isStudent(req,res,next){
     next()
 }
 
-module.exports = {isAdmin,isStudent};
+module.exports = {isAdmin,isStudent};  
