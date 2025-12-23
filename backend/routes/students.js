@@ -2,6 +2,7 @@ const express = require("express");
 
 const pool = require("../db/pool");
 const result = require("../utils/createResult");
+const cryptojs = require("crypto-js");
 
 const router = express.Router();
 
@@ -15,14 +16,12 @@ router.post("/register-to-course",(req,res)=>{
 })
 
 router.put("/change-password",(req,res)=>{
-  const uid = req.headers.uid;
-  if (!uid) {
-    return res.send(result.createResult("Unauthorized"));
-  }
+  const email = req.headers.email;
   const {newPassword,confirmPassword} = req.body;
   if(newPassword == confirmPassword){
-    const sql = `update users set password = ? where uid = ?`;
-    pool.query(sql,[newPassword,uid],(error,data)=>{
+    const hashedPassword = cryptojs.SHA256(newPassword).toString();
+    const sql = `update users set password = ? where email = ?`;
+    pool.query(sql,[,hashedPassword],(error,data)=>{
       res.send(result.createResult(error,data));
     })
   }

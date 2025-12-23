@@ -14,8 +14,6 @@ router.get("/add-videos/:course_id", (req, res) => {
   });
 });
 
-
-
 router.post("/add",(req,res) =>{
     const {course_id,title,youtube_url,description}  = req.body;
     const sql = `INSERT INTO videos  (course_id,title,youtube_url,description) VALUES(?,?,?,?)`;

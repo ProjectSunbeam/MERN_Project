@@ -1,47 +1,45 @@
-INSERT INTO users (name, email, password, mobile)
-VALUES ('Manthan Kore', 'manthan@gmail.com', 'mk', '1234567890');
+INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days) VALUES
+(201, 'Java Full Stack', 'Java, JDBC, Spring Boot, React', 25000, '2025-12-01', '2026-06-30', 365),
+(202, 'Web Development', 'HTML, CSS, JavaScript, MySQL', 15000, '2025-12-01', '2026-05-31', 300),
+(203, 'Python Programming', 'Core Python, OOP, File Handling', 18000, '2025-12-01', '2026-07-31', 400),
+(204, 'Data Structures', 'Arrays, Linked List, Stack, Queue, Trees', 12000, '2025-12-01', '2026-04-30', 250),
+(205, 'MERN Stack', 'MongoDB, Express, React, Node', 20000, '2025-12-01', '2026-12-31', 500);
 
-INSERT INTO users (name, email, password, mobile)
-VALUES ('Rushikesh Kharage', 'rushi@gmail.com', 'rk123', '9876543211');
-
-INSERT INTO users (name, email, password, mobile)
-VALUES ('Wajid Latpot', 'wajid@gmail.com', 'wl123', '9123456788');
-
-INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
-VALUES ('Manthan Kore', 'manthan@gmail.com', 101, '1234567890', NULL);
-
-INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
-VALUES ('Rushikesh Kharage', 'rushi@gmail.com', 102, '2234567890', NULL);
-
-INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
-VALUES ('Wajid Latpot', 'wajid@gmail.com', 103, '9123456788', NULL);
-
--- Example: Wajid in another course
-INSERT INTO students (name, email, course_id, mobile_no, profile_pic)
-VALUES ('Wajid Latpot', 'wajid@gmail.com', 104, '9123456788', NULL);
+INSERT INTO users (uid, name, email, password, mobile) VALUES
+(1, 'Manthan Kore', 'manthan@gmail.com', 'mk', '1234567890'),
+(2, 'Rushikesh Kharage', 'rushi@gmail.com', 'rk123', '9876543211'),
+(3, 'Wajid Latpot', 'wajid@gmail.com', 'wl123', '9123456788');
 
 
-INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
-VALUES (101, 'Java Full Stack', 'Java, JDBC, Spring Boot, React', 25000, '2025-01-01', '2025-06-30', 180);
+INSERT INTO students (name, email, course_id, mobile_no) VALUES
+('Manthan Kore', 'manthan@gmail.com', 201, '1234567890'),
+('Manthan Kore', 'manthan@gmail.com', 205, '1234567890'),
 
-INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
-VALUES (102, 'Web Development', 'HTML, CSS, JavaScript, MySQL', 15000, '2025-02-01', '2025-05-31', 120);
+('Rushikesh Kharage', 'rushi@gmail.com', 202, '9876543211'),
+('Rushikesh Kharage', 'rushi@gmail.com', 205, '9876543211'),
 
-INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
-VALUES (103, 'Python Programming', 'Core Python, OOP, File Handling', 18000, '2025-03-01', '2025-07-31', 150);
-
-INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days)
-VALUES (104, 'Data Structures', 'Arrays, Linked List, Stack, Queue, Trees', 12000, '2025-01-15', '2025-04-30', 90);
+('Wajid Latkar', 'wajid@gmail.com', 203, '9123456788'),
+('Wajid Latkar', 'wajid@gmail.com', 204, '9123456788'),
+('Wajid Latkar', 'wajid@gmail.com', 205, '9123456788');
 
 
-INSERT INTO videos (course_id, title, description, youtube_url, added_at)
-VALUES (101, 'Java Introduction', 'Intro to Java', 'https://youtube.com/vid1', '2025-01-02');
+INSERT INTO videos (course_id, title, description, youtube_url, added_at) VALUES
+-- Java
+(201, 'Java Basics', 'Intro to Java', 'https://youtube.com/java1', CURDATE()),
+(201, 'Spring Boot', 'Spring Boot Intro', 'https://youtube.com/java2', CURDATE()),
 
-INSERT INTO videos (course_id, title, description, youtube_url, added_at)
-VALUES (101, 'Spring Boot Basics', 'Getting started with Spring Boot', 'https://youtube.com/vid2', '2025-01-10');
+-- Web
+(202, 'HTML Basics', 'HTML Intro', 'https://youtube.com/web1', CURDATE()),
+(202, 'CSS Basics', 'CSS Intro', 'https://youtube.com/web2', CURDATE()),
 
-INSERT INTO videos (course_id, title, description, youtube_url, added_at)
-VALUES (102, 'HTML & CSS', 'Basics of HTML and CSS', 'https://youtube.com/vid3', '2025-02-02');
+-- Python
+(203, 'Python Basics', 'Python Intro', 'https://youtube.com/python1', CURDATE()),
+(203, 'OOP in Python', 'OOP Concepts', 'https://youtube.com/python2', CURDATE()),
 
-INSERT INTO videos (course_id, title, description, youtube_url, added_at)
-VALUES (103, 'Python OOP', 'Object-Oriented Python', 'https://youtube.com/vid4', '2025-03-05');
+-- DS
+(204, 'Arrays', 'Array Basics', 'https://youtube.com/ds1', CURDATE()),
+(204, 'Linked List', 'Linked List Intro', 'https://youtube.com/ds2', CURDATE()),
+
+-- MERN
+(205, 'MERN Overview', 'MERN Stack Intro', 'https://youtube.com/mern1', CURDATE()),
+(205, 'React Basics', 'React Intro', 'https://youtube.com/mern2', CURDATE());

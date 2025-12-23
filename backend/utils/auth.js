@@ -16,9 +16,12 @@ function authUser(req,res,next){
             try {
                 const payload = jwt.verify(token, config.SECRET);
 
-                req.headers.uid = payload.uid;
-                req.headers.email = payload.email;
-+
+                req.user = {
+                    uid: payload.uid,
+                    email:payload.email,
+                    role:payload.role
+                }
+
                 next();
 
             } catch (ex) {
