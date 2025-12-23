@@ -15,7 +15,8 @@ function authUser(req,res,next){
         else{
             try {
                 const payload = jwt.verify(token, config.SECRET);
-
+                // to check  weather role is workiing or not
+                   console.log('Decoded token payload:', payload); 
                 req.user = {
                     uid: payload.uid,
                     email:payload.email,
