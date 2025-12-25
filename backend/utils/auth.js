@@ -36,6 +36,6 @@ function roleAuthorization(req, res, next) {
     console.log(`Not Authorized`);
     res.send(`Not Authorized`);
   }
-} 
+}
 
 module.exports = { authUser, roleAuthorization };

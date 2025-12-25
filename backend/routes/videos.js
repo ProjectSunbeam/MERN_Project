@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get("/add-videos/:course_id", roleAuthorization, (req, res) => {
   const course_id = req.params.course_id;
-
   const sql = `SELECT * FROM videos WHERE course_id = ?`;
 
   pool.query(sql, [course_id], (error, data) => {
