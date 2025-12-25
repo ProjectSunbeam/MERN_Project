@@ -1,14 +1,13 @@
-function createResult(error,data){
-  const res = {}
-  if(data){
-    res.status = "success";
-    res.data = data;
+function createResult(error, data) {
+  const result = {};
+  if (data) {
+    result.status = "Success";
+    result.data = data;
+  } else {
+    result.status = "Error";
+    result.error = error;
   }
-  else{
-    res.status = "error"
-    res.error = error;
-  }
-  return res;
+  return result;
 }
 
-module.exports = {createResult}
+module.exports = { createResult };

@@ -1,9 +1,7 @@
 CREATE TABLE users (
-    uid INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20),
-    email VARCHAR(50) UNIQUE,
+    email VARCHAR(50) PRIMARY KEY,
     password VARCHAR(100),
-    mobile CHAR(10)
+    role enum('student','admin') DEFAULT 'student'
 );
 
 CREATE TABLE courses (
@@ -24,7 +22,9 @@ CREATE TABLE students (
     mobile_no CHAR(10),
     profile_pic BLOB,
     CONSTRAINT fk_student_course
-        FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        FOREIGN KEY (course_id) REFERENCES courses(course_id),
+    CONSTRAINT fk_student_users
+        FOREIGN KEY (email) REFERENCES users(email)
 );
 
 CREATE TABLE videos (
@@ -37,5 +37,3 @@ CREATE TABLE videos (
     CONSTRAINT fk_video_course
         FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
-
-ALTER TABLE users ADD role ENUM('admin','student') DEFAULT 'student';

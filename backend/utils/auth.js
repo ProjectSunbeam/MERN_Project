@@ -1,35 +1,41 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const result = require('./createResult');
-const config = require('./config');
+const result = require("./createResult");
+const config = require("../utils/config");
 
-function authUser(req,res,next){
-    const path = req.url;
-    if(path == '/users/signup' || path == '/users/signin')
+function authUser(req, res, next) {
+  const path = req.url;
+  console.log(path);
+  if (path == "/users/signin" || path == "/users/signup") {
+    next();
+  } else {
+    const token = req.headers.token;
+    if (!token) {
+      res.send(result.createResult(`Token Is Missing`));
+    } else {
+      try {
+        const payload = jwt.verify(token, config.SECRET);
+        req.headers.uid = payload.uid;
+        req.headers.email = payload.email;
+        req.headers.role = payload.role;
+
         next();
-    else{
-        const token = req.headers.token;
-        if(!token){
-            res.send(result.createResult('Token is missing'));
-        }
-        else{
-            try {
-                const payload = jwt.verify(token, config.SECRET);
-                // to check  weather role is workiing or not
-                   console.log('Decoded token payload:', payload); 
-                req.user = {
-                    uid: payload.uid,
-                    email:payload.email,
-                    role:payload.role
-                }
-
-                next();
-
-            } catch (ex) {
-                res.send(result.createResult('Token is Invalid'));
-            }
-        }
+      } catch (ex) {
+        res.send(result.createResult(`Token Is Invalid`));
+      }
     }
+  }
 }
 
-module.exports = authUser;
+function roleAuthorization(req, res, next) {
+  const role = req.headers.role;
+  if (role === "admin") {
+    console.log(`welcome admin`);
+    return next();
+  } else {
+    console.log(`Not Authorized`);
+    res.send(`Not Authorized`);
+  }
+}
+
+module.exports = { authUser, roleAuthorization };
