@@ -1,45 +1,36 @@
-INSERT INTO courses (course_id, course_name, description, fees, start_date, end_date, video_expire_days) VALUES
-(201, 'Java Full Stack', 'Java, JDBC, Spring Boot, React', 25000, '2025-12-01', '2026-06-30', 365),
-(202, 'Web Development', 'HTML, CSS, JavaScript, MySQL', 15000, '2025-12-01', '2026-05-31', 300),
-(203, 'Python Programming', 'Core Python, OOP, File Handling', 18000, '2025-12-01', '2026-07-31', 400),
-(204, 'Data Structures', 'Arrays, Linked List, Stack, Queue, Trees', 12000, '2025-12-01', '2026-04-30', 250),
-(205, 'MERN Stack', 'MongoDB, Express, React, Node', 20000, '2025-12-01', '2026-12-31', 500);
+INSERT INTO users (email, password, role) VALUES
+('admin@gmail.com',   '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin'),
+('akshad@gmail.com',  '2101a2ea959af5f866ab6a66faab29a69d72eb2011b09cba2b14ecb566dc0b10', 'student'),
+('manthan@gmail.com', '4c3b3284e206c3db72440736cfdbd185f0e61a3c7fd9f049987196b987d3d1ee', 'student'),
+('rushi@gmail.com',   'f04125358169beafeee8fd8b978ad4359e67a92086befd992b60ee9dd0a2c54d', 'student'),
+('wajid@gmail.com',   '9d709a05ea3ef8e47d527b1ad766e60447b90f0cb58c3b5ba9a77c30e53b0f4c', 'student');
 
-INSERT INTO users (uid, name, email, password, mobile) VALUES
-(1, 'Manthan Kore', 'manthan@gmail.com', 'mk', '1234567890'),
-(2, 'Rushikesh Kharage', 'rushi@gmail.com', 'rk123', '9876543211'),
-(3, 'Wajid Latpot', 'wajid@gmail.com', 'wl123', '9123456788');
+INSERT INTO courses
+(course_id, course_name, description, fees, start_date, end_date, video_expire_days)
+VALUES
+(1, 'Java Full Stack', 'Java, JDBC, Spring Boot, React', 25000, '2025-01-01', '2025-06-30', 180),
+(2, 'Web Development', 'HTML, CSS, JavaScript, MySQL', 15000, '2025-02-01', '2025-05-31', 120),
+(3, 'Python Programming', 'Core Python, OOP, File Handling', 18000, '2025-03-01', '2025-07-31', 150),
+(4, 'Backend Development', 'Node.js, Express, MySQL', 20000, '2025-12-25', '2026-06-25', 180);
 
+INSERT INTO students
+(reg_no, name, email, course_id, mobile_no, profile_pic)
+VALUES
+(2, 'manthan', 'manthan@gmail.com', 1, 1234567890, NULL),
+(3, 'manthan', 'manthan@gmail.com', 2, 1234567890, NULL),
+(4, 'rushi',   'rushi@gmail.com',   2, 1234567890, NULL),
+(5, 'wajid',   'wajid@gmail.com',   3, 1234567890, NULL),
+(6, 'wajid',   'wajid@gmail.com',   1, 1234567890, NULL),
+(7, 'akshad',  'akshad@gmail.com',  4, 1234567890, NULL);
 
-INSERT INTO students (name, email, course_id, mobile_no) VALUES
-('Manthan Kore', 'manthan@gmail.com', 201, '1234567890'),
-('Manthan Kore', 'manthan@gmail.com', 205, '1234567890'),
-
-('Rushikesh Kharage', 'rushi@gmail.com', 202, '9876543211'),
-('Rushikesh Kharage', 'rushi@gmail.com', 205, '9876543211'),
-
-('Wajid Latkar', 'wajid@gmail.com', 203, '9123456788'),
-('Wajid Latkar', 'wajid@gmail.com', 204, '9123456788'),
-('Wajid Latkar', 'wajid@gmail.com', 205, '9123456788');
-
-
-INSERT INTO videos (course_id, title, description, youtube_url, added_at) VALUES
--- Java
-(201, 'Java Basics', 'Intro to Java', 'https://youtube.com/java1', CURDATE()),
-(201, 'Spring Boot', 'Spring Boot Intro', 'https://youtube.com/java2', CURDATE()),
-
--- Web
-(202, 'HTML Basics', 'HTML Intro', 'https://youtube.com/web1', CURDATE()),
-(202, 'CSS Basics', 'CSS Intro', 'https://youtube.com/web2', CURDATE()),
-
--- Python
-(203, 'Python Basics', 'Python Intro', 'https://youtube.com/python1', CURDATE()),
-(203, 'OOP in Python', 'OOP Concepts', 'https://youtube.com/python2', CURDATE()),
-
--- DS
-(204, 'Arrays', 'Array Basics', 'https://youtube.com/ds1', CURDATE()),
-(204, 'Linked List', 'Linked List Intro', 'https://youtube.com/ds2', CURDATE()),
-
--- MERN
-(205, 'MERN Overview', 'MERN Stack Intro', 'https://youtube.com/mern1', CURDATE()),
-(205, 'React Basics', 'React Intro', 'https://youtube.com/mern2', CURDATE());
+INSERT INTO videos
+(video_id, course_id, title, description, youtube_url, added_at)
+VALUES
+(1, 1, 'Java Introduction',    'Intro to Java',                'https://youtube.com/vid1',  '2025-01-05'),
+(2, 1, 'Spring Boot Basics',   'Spring Boot Start',            'https://youtube.com/vid2',  '2025-02-01'),
+(3, 2, 'HTML & CSS',           'Frontend Basics',              'https://youtube.com/vid3',  '2025-02-10'),
+(4, 3, 'Python OOP',           'OOP Concepts',                 'https://youtube.com/vid4',  '2025-03-10'),
+(5, 1, 'Node.js Introduction', 'Introduction to Node.js',      'https://youtube.com/node1', '2025-12-25'),
+(6, 1, 'Express Basics',       'Routing and Middleware',       'https://youtube.com/node2', '2025-12-24'),
+(8, 2, 'yo',                   'yo video',                     'yo.com',                    '2025-12-25'),
+(9, 4, 'Basic backend dev',    'basic to help in backend dev', 'yt4.com',                   '2025-12-25');
