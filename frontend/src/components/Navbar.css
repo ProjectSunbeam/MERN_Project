@@ -1,0 +1,233 @@
+/* ========== UDEMY NAVBAR STYLING ========== */
+
+.ud-navbar {
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 0;
+}
+
+.ud-navbar .container-xxl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ========== LOGO ========== */
+.ud-logo {
+  font-weight: 700;
+  font-size: 22px;
+  color: #5624d0 !important;
+  text-decoration: none !important;
+  transition: opacity 0.2s ease;
+}
+
+.ud-logo:hover {
+  opacity: 0.8;
+}
+
+/* ========== EXPLORE BUTTON ========== */
+.ud-explore {
+  font-size: 14px;
+  color: #1c1d1f;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 6px 12px;
+}
+
+.ud-explore:hover {
+  color: #5624d0;
+  text-decoration: none;
+  background-color: #f7f9fa;
+  border-radius: 4px;
+}
+
+/* ========== SEARCH BAR ========== */
+.ud-search {
+  flex: 1;
+  max-width: 600px;
+  position: relative;
+}
+
+.ud-search input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  background-color: #f7f9fa;
+  border-radius: 999px;
+  border: 1px solid #d1d7dc;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.ud-search input:focus {
+  background-color: #ffffff;
+  border-color: #5624d0;
+  box-shadow: 0 0 0 3px rgba(86, 36, 208, 0.1);
+  outline: none;
+}
+
+.ud-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #6a6f73;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* ========== TOP LINKS ========== */
+.ud-top-link {
+  color: #1c1d1f;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 400;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+.ud-top-link:hover {
+  color: #5624d0;
+  text-decoration: none;
+  background-color: #f7f9fa;
+  border-radius: 4px;
+}
+
+/* ========== ICON BUTTONS ========== */
+.ud-icon-btn {
+  color: #1c1d1f;
+  font-size: 24px;
+  padding: 6px 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.ud-icon-btn:hover {
+  color: #5c40a3;;
+  background-color: #f7f9fa;
+  border-radius: 4px;
+}
+
+.ud-icon-btn i {
+  vertical-align: middle;
+}
+
+/* Cart badge (optional) */
+.ud-icon-btn .badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 10px;
+  padding: 2px 5px;
+}
+
+/* ========== AUTH BUTTONS ========== */
+.ud-auth-btn {
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  border: 1px solid #1c1d1f;
+  color: #1c1d1f;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ud-auth-btn:hover {
+  background-color: #f7f9fa;
+  color: #1c1d1f;
+}
+
+.ud-auth-btn--primary {
+  background-color: #5c40a3;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ud-auth-btn--primary:hover {
+  background-color: #7e66be;
+  color: #fff !important;
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(86, 36, 208, 0.3);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 991px) {
+  .ud-search {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ud-navbar .container-xxl {
+    flex-wrap: wrap;
+  }
+
+  .ud-search {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 12px;
+  }
+
+  .ud-logo {
+    font-size: 20px;
+  }
+
+  .ud-icon-btn {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ud-navbar {
+    padding: 10px 0;
+  }
+
+  .ud-logo {
+    font-size: 18px;
+  }
+
+  .ud-search input {
+    font-size: 13px;
+    padding: 8px 14px 8px 36px;
+  }
+
+  .ud-search-icon {
+    left: 12px;
+    font-size: 14px;
+  }
+
+  .ud-icon-btn {
+    font-size: 20px;
+    padding: 4px 6px;
+  }
+}
+
+/* ========== UTILITY CLASSES ========== */
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* Remove default button styling */
+.btn-link {
+  border: none;
+  background: none;
+  text-decoration: none;
+}
+
+.btn-link:focus {
+  box-shadow: none;
+}
