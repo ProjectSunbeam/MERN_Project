@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { registerUser } from "../services/userService";
+import "./Auth.css";
+import heroImg from "../assets/hero-Img.png";
 
 function Register() {
   const navigator = useNavigate();
@@ -34,58 +36,81 @@ function Register() {
   };
 
   return (
-    <div>
-      <h1>Welcome To Registration Page</h1>
-      <br />
-      <div className="form-floating">
+    <div className="auth-page">
+            <div className="auth-illustration">
+            <img src={heroImg} alt="Online learning" className="auth-image" />   
+              <h1 className="auth-title">
+                Become placement‑ready
+                <br /> with industry‑level courses.
+              </h1>
+      
+              <p className="auth-subtitle">
+                Master real projects, build a strong portfolio, and learn directly
+                from working engineers — all in one place.
+              </p>
+            </div>
+      <div className="auth-form-wrapper">
+      <div className="auth-card">
+      <h2 className="auth-heading">Sign up with email</h2>
+
+        <div className="field">
         <input
-          required
-          type="text"
-          className="form-control"
-          onChange={(e) => setName(e.target.value)}
+        type="text"
+        className="form-control modern-input"
+        placeholder="Full name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         />
-        <label for="floatingPassword">Name</label>
+
+        
+            <div className="field">
+              <input
+                type="email"
+                className="form-control modern-input"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <input
+                type="password"
+                className="form-control modern-input"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <input
+                type="tel"
+                className="form-control modern-input"
+                placeholder="Mobile"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </div>
+
+
+
+
+
+               don't have an account ? To Create Account{" "}
+               <Link to="/login">Click Here</Link>
+            
+            </div>
+
+      </div> 
+ 
+
       </div>
-      <br />
-      <div className="form-floating mb-3">
-        <input
-          required
-          type="email"
-          className="form-control"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="floatingInput">Email address</label>
-      </div>
-      <div className="form-floating">
-        <input
-          required
-          type="password"
-          className="form-control"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label for="floatingPassword">Password</label>
-      </div>
-      <br />
-      <div className="form-floating">
-        <input
-          required
-          type="text"
-          className="form-control"
-          onChange={(e) => setMobile(e.target.value)}
-        />
-        <label for="floatingPassword">Phone Number</label>
-      </div>
-      <br />
-      <input
-        className="btn btn-primary"
-        type="submit"
-        value="Sign-Up"
-        onClick={signup}
-      />
-      <br />
-      <br />
-      Already have an account ? To Sign-In <Link to="/login">Click Here</Link>
+      
+      
+
     </div>
+
   );
 }
 
