@@ -1,8 +1,8 @@
 #root {
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 .logo {
@@ -12,7 +12,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #46464baa);
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
@@ -39,22 +39,4 @@
 
 .read-the-docs {
   color: #888;
-}
-.Toastify__toast-container--top-center {
-  top: 50%;
-  transform: translateY(-50%);
-}
-.purple-btn {
-  background-color: #6f42c1;   /* clean purple */
-  color: #fff;
-  border: none;
-}
-
-.purple-btn:hover {
-  background-color: #59339d;
-}
-
-.purple-btn:disabled {
-  background-color: #b39ddb;
-  cursor: not-allowed;
 }

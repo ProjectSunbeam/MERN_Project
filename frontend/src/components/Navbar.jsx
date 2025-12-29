@@ -8,12 +8,9 @@ export default function Navbar() {
       <div className="container-xxl">
         {/* LEFT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
-          <Link className="navbar-brand ud-logo" to="/">
+          <Link className="navbar-brand ud-logo" to="/home">
             E‑Learn
           </Link>
-          <button className="btn btn-link ud-explore d-none d-lg-inline-flex">
-            Explore
-          </button>
         </div>
 
         {/* CENTER - Search */}
@@ -30,18 +27,28 @@ export default function Navbar() {
 
         {/* RIGHT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
-          <Link
-            to="/about"
-            className="btn btn-link ud-top-link d-none d-lg-inline-block"
-          >
-            About Us
-          </Link>
-          <Link
-            to="/courses"
-            className="btn btn-link ud-top-link d-none d-lg-inline-block"
-          >
-            All courses
-          </Link>
+          <div className="dropdown">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Courses
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <Link className="dropdown-item" to="/home">
+                  Get All Courses
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/home">
+                  Register To Course
+                </Link>
+              </li>
+            </ul>
+          </div>
 
           <button className="btn btn-link ud-icon-btn">
             <i className="bi bi-cart3"></i>
