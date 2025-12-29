@@ -13,6 +13,7 @@ import AllCourses from "./pages/AllCourses";
 import GetAllStudents from "./pages/GetAllStudents";
 import GetAllVideos from "./pages/GetAllVideos";
 import AddVideo from "./pages/AddVideo";
+import DeleteCourse from "./pages/DeleteCourse";
 
 export const LoginContext = createContext();
 
@@ -57,6 +58,10 @@ function App() {
           <Route
             path="/addvideo"
             element={loginStatus ? <AddVideo /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/deletecourse"
+            element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
         </Routes>
       </LoginContext.Provider>

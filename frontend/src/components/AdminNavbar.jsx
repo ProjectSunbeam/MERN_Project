@@ -41,6 +41,11 @@ export default function Navbar() {
                   Add Course
                 </Link>
               </li>
+              <li>
+                <Link className="dropdown-item" to="/deletecourse">
+                  Delete Course
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="dropdown">
