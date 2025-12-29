@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, Routes } from "react-router";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
@@ -14,6 +14,8 @@ import GetAllStudents from "./pages/GetAllStudents";
 import GetAllVideos from "./pages/GetAllVideos";
 import AddVideo from "./pages/AddVideo";
 import DeleteCourse from "./pages/DeleteCourse";
+import Courses from "./pages/Courses";
+import CourseDetails from "./pages/CourseDetails";
 
 export const LoginContext = createContext();
 
@@ -63,6 +65,9 @@ function App() {
             path="/deletecourse"
             element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
+          <Route path="/courses" element={<Courses />} />
+
+          <Route path="/course/:id" element={<CourseDetails />} />
         </Routes>
       </LoginContext.Provider>
       <ToastContainer />
