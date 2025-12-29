@@ -4,7 +4,13 @@ import "./Navbar.css";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-light bg-white ud-navbar">
+    <nav   style={{
+    width: "100%",
+
+    borderRadius: "35px",
+    boxShadow: "0 8px 25px rgba(0, 0, 0, 0.08)",
+  }}
+className="navbar navbar-light bg-white ud-navbar">
       <div className="container-xxl">
         {/* LEFT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
