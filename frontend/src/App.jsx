@@ -16,6 +16,7 @@ import AddVideo from "./pages/AddVideo";
 import DeleteCourse from "./pages/DeleteCourse";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
+import AdminCourseDetails from "./pages/AdminCourseDetails";
 
 export const LoginContext = createContext();
 
@@ -68,6 +69,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
 
           <Route path="/course/:id" element={<CourseDetails />} />
+          <Route path="/admincourse/:id" element={<AdminCourseDetails />} />
         </Routes>
       </LoginContext.Provider>
       <ToastContainer />
