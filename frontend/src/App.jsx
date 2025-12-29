@@ -1,30 +1,43 @@
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import Navbar from "./components/Navbar";
+import { Navigate, Route, Routes } from "react-router";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
-import VideoSection from "./pages/video_section";
+import { ToastContainer } from "react-toastify";
+import { useState } from "react";
+import { LoginContext } from "./contex/loginContext";
+import Courses from "./pages/Courses";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
+  const [loginStatus, setLoginStatus] = useState(
+    !!sessionStorage.getItem("token")
+  );
+
   return (
     <>
-     <Navbar />
-      <Routes>
-        {/* <Route path="/" element={<Register />} /> */}
-        {/* /* <Route path="/login" element={<Login />} /> */}
-        
-        <Route path="/register" element={<Register />} /> 
-        {/* /* <Route path="/courses/:id/learn" element={<VideoSection />} />  */}
-      </Routes>
+      <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
 
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        theme="colored"
-      />
+          <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/login"
+            element={!loginStatus ? <Login /> : <Navigate to="/" />}
+          />
+
+          <Route
+            path="/profile"
+            element={loginStatus ? <Profile /> : <Navigate to="/login" />}
+          />
+          <Route path="/courses" element={<Courses />} />
+
+          <Route path="/course/:id" element={<CourseDetails />} />
+        </Routes>
+      </LoginContext.Provider>
+      <ToastContainer />
     </>
   );
 }

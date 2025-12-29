@@ -3,12 +3,15 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../services/userService";
+import { useContext } from "react";
+import { LoginContext } from "../contex/loginContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setLoginStatus } = useContext(LoginContext);
 
   const validate = () => {
     if (!email.trim()) {
@@ -36,10 +39,11 @@ export default function Login() {
     try {
       setLoading(true);
       const data = await loginUser(email.trim(), password);
+      console.log("LOGIN RESPONSE FULL:", data);
+      sessionStorage.getItem("token");
+      setLoginStatus(true);
       toast.success("Login successful!");
-      // Store token if needed
-      localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       const msg = err.response?.data?.message || "Login failed. Try again.";
       toast.error(msg);
