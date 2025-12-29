@@ -20,6 +20,7 @@ function Login() {
       console.log(result);
       if (result.status == "Success") {
         setLoginStatus(true);
+        sessionStorage.setItem("email", result.data.email);
         sessionStorage.setItem("token", result.data.token);
         toast.success("Login successful");
         if (result.data.role == "admin") {
@@ -59,7 +60,7 @@ function Login() {
         type="submit"
         value="Sign-In"
         onClick={login}
-      />  
+      />
       <br />
       <br />
       don't have an account ? To Create Account{" "}
