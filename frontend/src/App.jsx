@@ -1,40 +1,63 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Link, Navigate, Route, Routes } from "react-router";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
-import { useState } from "react";
-import { LoginContext } from "./contex/loginContext";
-import Courses from "./pages/Courses";
-import CourseDetails from "./pages/CourseDetails";
+
+import "./App.css";
+import { createContext, useState } from "react";
+import Admin from "./pages/Admin";
+import AddCourse from "./pages/AddCourse";
+import AllCourses from "./pages/AllCourses";
+import GetAllStudents from "./pages/GetAllStudents";
+import GetAllVideos from "./pages/GetAllVideos";
+import AddVideo from "./pages/AddVideo";
+
+export const LoginContext = createContext();
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState(
-    !!sessionStorage.getItem("token")
-  );
-
+  const [loginStatus, setLoginStatus] = useState(false);
   return (
     <>
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-
+          <Route path="/*" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
+          {/* Protecting Routes */}
           <Route
-            path="/login"
-            element={!loginStatus ? <Login /> : <Navigate to="/" />}
+            path="/home"
+            element={loginStatus ? <Home /> : <Navigate to="/" />}
           />
-
           <Route
             path="/profile"
-            element={loginStatus ? <Profile /> : <Navigate to="/login" />}
+            element={loginStatus ? <Profile /> : <Navigate to="/" />}
           />
-          <Route path="/courses" element={<Courses />} />
-
-          <Route path="/course/:id" element={<CourseDetails />} />
+          <Route
+            path="/admin"
+            element={loginStatus ? <Admin /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/addcourse"
+            element={loginStatus ? <AddCourse /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/allcourses"
+            element={loginStatus ? <AllCourses /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/getallstudents"
+            element={loginStatus ? <GetAllStudents /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/getallvideos"
+            element={loginStatus ? <GetAllVideos /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/addvideo"
+            element={loginStatus ? <AddVideo /> : <Navigate to="/" />}
+          />
         </Routes>
       </LoginContext.Provider>
       <ToastContainer />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getCourses } from "../services/userService";
 import { toast } from "react-toastify";
+import AdminNavbar from "../components/AdminNavbar";
 
 function Home() {
   const [course, setCourse] = useState([]);
@@ -24,7 +25,8 @@ function Home() {
 
   return (
     <div>
-      <Navbar />
+      <AdminNavbar />
+      <h1>All Courses</h1>
       <div className="container">
         <div className="row">
           {course.map((e) => {

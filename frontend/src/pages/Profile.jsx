@@ -1,78 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { getUserProfile } from "../services/userService";
-import { updateProfile } from "../services/userService";
-import { toast } from "react-toastify";
+import { getProfile } from "../services/userService";
 
 function Profile() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
-    console.log("Profile is loaded");
-    getProfile();
+    console.log(`Profile Loaded`);
+    getDetails();
   }, []);
 
-  const getProfile = async () => {
+  const getDetails = async () => {
     const token = sessionStorage.getItem("token");
-    const result = await getUserProfile(token);
-    console.log(result);
-
-    if (result.status == "success") {
+    const result = await getProfile(token);
+    if (result.status == "Success") {
       const user = result.data[0];
-      setName(user.name);
       setEmail(user.email);
-      setMobile(user.mobile);
-    }
-  };
-
-  const update = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await updateProfile(token, name, email, mobile);
-    if (result.status == "success") {
-      toast.success("Profile Update");
+      setRole(user.role);
+    } else {
+      console.log(result.error);
+      toast.error(result.error);
     }
   };
 
   return (
-    <>
+    <div>
       <Navbar />
-      <div className="container w-50">
-        <div className="mt-3 mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="inputName"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="inputEmail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mt-3 mb-3">
-          <input
-            type="tel"
-            className="form-control"
-            id="inputMobile"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-        </div>
-        <div>
-          <button className="btn btn-primary" onClick={update}>
-            Update
-          </button>
+      <h1>Welcome To Your Profile</h1>
+      <div className="container">
+        <div className="row">
+          <div className="mt-3 col-4">
+            <div className="card" style={{ width: "20rem" }}>
+              <div className="card-body">
+                <h5 className="card-title" style={{ height: "2rem" }}>
+                  {email}
+                </h5>
+                <h6 className="card-subtitle mb-2 text-body-secondary">
+                  {role}
+                </h6>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
