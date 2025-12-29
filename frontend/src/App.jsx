@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
@@ -20,11 +20,13 @@ import AdminCourseDetails from "./pages/AdminCourseDetails";
 import CourseRegister from "./pages/CourseRegister";
 import MyCourses from "./pages/MyCourses";
 import MyCourseVideos from "./pages/MyCourseVideos";
+import AddVideoForm from "./pages/AddVideoForm";
 
 export const LoginContext = createContext();
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false);
+
   return (
     <>
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
@@ -32,7 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* Protecting Routes */}
+
           <Route
             path="/home"
             element={loginStatus ? <Home /> : <Navigate to="/" />}
@@ -66,11 +68,15 @@ function App() {
             element={loginStatus ? <AddVideo /> : <Navigate to="/" />}
           />
           <Route
+            path="/addvideoform/:courseId"
+            element={loginStatus ? <AddVideoForm /> : <Navigate to="/" />}
+          />
+          <Route
             path="/deletecourse"
             element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
-          <Route path="/courses" element={<Courses />} />
 
+          <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/admincourse/:id" element={<AdminCourseDetails />} />
           <Route path="/course-register" element={<CourseRegister />} />
@@ -82,6 +88,7 @@ function App() {
           />
         </Routes>
       </LoginContext.Provider>
+
       <ToastContainer />
     </>
   );
