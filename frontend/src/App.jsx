@@ -13,6 +13,7 @@ import AllCourses from "./pages/AllCourses";
 import GetAllStudents from "./pages/GetAllStudents";
 import GetAllVideos from "./pages/GetAllVideos";
 import AddVideo from "./pages/AddVideo";
+import DeleteCourse from "./pages/DeleteCourse";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
 
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="/addvideo"
             element={loginStatus ? <AddVideo /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/deletecourse"
+            element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
           <Route path="/courses" element={<Courses />} />
 
