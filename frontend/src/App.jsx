@@ -17,6 +17,9 @@ import DeleteCourse from "./pages/DeleteCourse";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
 import AdminCourseDetails from "./pages/AdminCourseDetails";
+import CourseRegister from "./pages/CourseRegister";
+import MyCourses from "./pages/MyCourses";
+import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
 
 export const LoginContext = createContext();
@@ -28,7 +31,7 @@ function App() {
     <>
       <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
         <Routes>
-          <Route path="/*" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
@@ -76,6 +79,13 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/admincourse/:id" element={<AdminCourseDetails />} />
+          <Route path="/course-register" element={<CourseRegister />} />
+          <Route path="/my-courses" element={<MyCourses />} />
+
+          <Route
+            path="/my-course/:courseId/videos"
+            element={<MyCourseVideos />}
+          />
         </Routes>
       </LoginContext.Provider>
 

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getAllCourses } from "../services/courseService";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function CourseDetails() {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCourse();
@@ -89,7 +91,18 @@ function CourseDetails() {
                 </div>
 
                 <div className="d-grid">
-                  <button className="btn btn-primary btn-lg">
+                  <button
+                    className="btn btn-primary btn-lg"
+                    onClick={() =>
+                      navigate("/course-register", {
+                        state: {
+                          courseId: course.course_id,
+                          courseName: course.course_name,
+                          fees: course.fees,
+                        },
+                      })
+                    }
+                  >
                     Register Now
                   </button>
                 </div>
