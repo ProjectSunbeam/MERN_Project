@@ -21,7 +21,11 @@ function Login() {
       toast.warn("password must be entered");
     } else {
       const result = await authLogin(email, password);
+      sessionStorage.setItem("email", user.email);
+      sessionStorage.setItem("token", user.token);
+
       if (result.success) {
+        // const user = result.data;
         setLoginStatus(true);
         toast.success("Login successful");
         if (user.role == "admin") {
@@ -50,7 +54,9 @@ function Login() {
       <div className="login-form-wrapper">
         <div className="login-card">
           <h2 className="login-heading">Log in to your account</h2>
-          <p className="login-subheading">Welcome back! Please enter your details.</p>
+          <p className="login-subheading">
+            Welcome back! Please enter your details.
+          </p>
 
           <div className="login-form-group">
             <label className="login-label">Email</label>
@@ -74,20 +80,9 @@ function Login() {
             />
           </div>
 
-          <button
-            className="login-button"
-            type="button"
-            onClick={login}
-          >
+          <button className="login-button" type="button" onClick={login}>
             Sign In
           </button>
-
-          <p className="login-footer">
-            New to E‑Learn Hub?{" "}
-            <Link to="/register" className="login-link">
-              Sign up
-            </Link>
-          </p>
         </div>
       </div>
     </div>

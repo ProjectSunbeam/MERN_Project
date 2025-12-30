@@ -1,45 +1,73 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { getAllCourses } from "../services/courseService";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { getCourses } from "../services/userService";
 
 function Courses() {
-  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadCourses();
+    console.log("course Loaded");
+    getAllCourses();
   }, []);
 
-  const loadCourses = async () => {
+  const getAllCourses = async () => {
     const token = sessionStorage.getItem("token");
-    const result = await getAllCourses(token);
+    const result = await getCourses(token);
 
-    if (result.status === "success") {
-      const today = new Date();
-
-      // ✅ filter ACTIVE courses
-      const activeCourses = result.data.filter((c) => {
-        const start = new Date(c.start_date);
-        const end = new Date(c.end_date);
-        return today >= start && today <= end;
-      });
-
-      setCourses(activeCourses);
+    if (result.status === "Success") {
+      setCourse(result.data);
+    } else {
+      toast.error(result.error);
     }
   };
+
+  // const loadCourses = async () => {
+  //   const token = sessionStorage.getItem("token");
+  //   const result = await getAllCourses(token);
+
+  //   if (result.status === "success") {
+  //     setCourses(result.data);
+  //   }
+  // };
 
   return (
     <>
       <Navbar />
       <div className="container mt-3">
-        <h3>Active Courses</h3>
-        <div className="row">
-          {courses.map((e) => (
-            <div key={e.course_id} className="mt-3 col-3">
-              <div className="card">
-                <div className="card-body">
-                  <h5>{e.course_name}</h5>
-                  <p>{e.description}</p>
-                  <p>₹ {e.fees}</p>
+        <div className="row g-4">
+          {course.map((e) => (
+            <div
+              key={e.course_id}
+              className="col-12 col-sm-6 col-md-4 col-lg-3"
+            >
+              <div className="card h-100 shadow-sm border-0">
+                {/* Image Placeholder */}
+                <div
+                  className="d-flex align-items-center justify-content-center bg-light"
+                  style={{ height: "180px", fontWeight: "600" }}
+                >
+                  Course Image
+                </div>
+
+                {/* Card Body */}
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title text-center">{e.course_name}</h5>
+
+                  <p className="text-muted text-center flex-grow-1">
+                    {e.description}
+                  </p>
+
+                  <h6 className="text-center mb-3">₹ {e.fees}</h6>
+
+                  <button
+                    className="btn btn-primary mt-auto"
+                    onClick={() => navigate(`/course/${e.course_id}`)}
+                  >
+                    View
+                  </button>
                 </div>
               </div>
             </div>

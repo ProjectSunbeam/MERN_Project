@@ -21,6 +21,8 @@ import CourseRegister from "./pages/CourseRegister";
 import MyCourses from "./pages/MyCourses";
 import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
+import AboutUs from './pages/AboutUs';
+
 import ProfileDropdown from "./components/ProfileDropdown";
 import ChangePassword from "./components/ChangePassword";
 export const LoginContext = createContext();
@@ -35,7 +37,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
+          <Route path="/aboutus" element = {<AboutUs />}/>
           <Route
             path="/home"
             element={loginStatus ? <Home /> : <Navigate to="/" />}
