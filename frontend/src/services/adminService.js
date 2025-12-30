@@ -91,9 +91,7 @@ export async function getAllCourses() {
   const token = sessionStorage.getItem("token"); // optional if your backend requires
   const url = config.BASE_URL + "/courses/all"; // make sure your backend route exists
 
-  const response = await axios.get(url, {
-    headers: { token },
-  });
+  const response = await axios.get(url, {});
 
   return response.data;
 }

@@ -14,8 +14,7 @@ function CourseDetails() {
   }, [id]);
 
   const loadCourse = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await getAllCourses(token);
+    const result = await getAllCourses();
 
     console.log("API RESULT:", result);
     console.log("URL ID:", id);
@@ -38,9 +37,7 @@ function CourseDetails() {
     return (
       <>
         <Navbar />
-        <h4 className="text-center mt-5 text-danger">
-          Course Expired !!!
-        </h4>
+        <h4 className="text-center mt-5 text-danger">Course Expired !!!</h4>
       </>
     );
   }
