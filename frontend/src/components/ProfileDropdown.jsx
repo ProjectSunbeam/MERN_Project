@@ -43,7 +43,7 @@ export default function ProfileDropdown() {
       </button>
 
       {isOpen && (
-        <div className="dropdown-menu show position-absolute end-0 mt-2" style={{width: '20rem', zIndex: 50}}>
+        <div className="dropdown-menu show position-absolute end-0 mt-2" style={{width: '20rem', zIndex: 1050}}>
           {/* Profile Header */}
           <div className="p-3 border-bottom">
             <div className="d-flex align-items-center gap-3">

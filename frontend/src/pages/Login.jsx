@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { loginUser } from "../services/userService";
 import { LoginContext } from "./../App";
+import { useAuth } from "../contex/AuthContext";
 import "./Login.css";
 import heroImg from "../assets/hero-Img.png";
 
@@ -11,6 +12,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigates = useNavigate();
   const { loginStatus, setLoginStatus } = useContext(LoginContext);
+  const { login: authLogin, user } = useAuth();
 
   const login = async () => {
     if (email == "") {
@@ -18,14 +20,11 @@ function Login() {
     } else if (password == "") {
       toast.warn("password must be entered");
     } else {
-      const result = await loginUser(email, password);
-      console.log(result);
-      if (result.status == "Success") {
+      const result = await authLogin(email, password);
+      if (result.success) {
         setLoginStatus(true);
-        sessionStorage.setItem("email", result.data.email);
-        sessionStorage.setItem("token", result.data.token);
         toast.success("Login successful");
-        if (result.data.role == "admin") {
+        if (user?.role == "admin") {
           navigates("/admin");
         } else {
           navigates("/home");

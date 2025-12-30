@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
           setProfile(profileData.data);
         }
       } catch (error) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
       }
     }
     setLoading(false);
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       
       if (response.status === "Success") {
         const { token } = response.data;
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
         
         const payload = JSON.parse(atob(token.split('.')[1]));
         setUser({ 
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setUser(null);
     setProfile(null);
   };
