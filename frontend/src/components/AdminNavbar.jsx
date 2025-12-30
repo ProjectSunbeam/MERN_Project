@@ -1,26 +1,38 @@
-// src/components/Navbar.jsx
-import { Link } from "react-router-dom";
+// src/components/AdminNavbar.jsx
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function AdminNavbar() {
+  const navigate = useNavigate();
+
+  const goTo = (path) => {
+    navigate(path);
+  };
+
   return (
-    <nav className="navbar navbar-light bg-white ud-navbar">
+    <nav
+      className="navbar navbar-light bg-white ud-navbar"
+      style={{
+        width: "100%",
+        borderRadius: "35px",
+        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.08)",
+      }}
+    >
       <div className="container-xxl">
         {/* LEFT group */}
-
-        {/* CENTER - Search */}
+        <div className="d-flex align-items-center gap-3 flex-shrink-0">
+          <button
+            className="btn btn-link navbar-brand ud-logo"
+            onClick={() => goTo("/admin")}
+          >
+            Admin Panel
+          </button>
+        </div>
 
         {/* RIGHT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
-          {/* <Link
-            to="/allcourses"
-            className="btn btn-link ud-top-link d-none d-lg-inline-block"
-          >
-            All courses
-          </Link> */}
-          <Link className="btn btn-link ud-top-link d-none d-lg-inline-block">
-            Admin !!
-          </Link>
+          {/* Courses Dropdown */}
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -32,22 +44,33 @@ export default function Navbar() {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <Link className="dropdown-item" to="/allcourses">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/allcourses")}
+                >
                   Get All Courses
-                </Link>
+                </button>
               </li>
               <li>
-                <Link className="dropdown-item" to="/addcourse">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/addcourse")}
+                >
                   Add Course
-                </Link>
+                </button>
               </li>
               <li>
-                <Link className="dropdown-item" to="/deletecourse">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/deletecourse")}
+                >
                   Delete Course
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
+
+          {/* Videos Dropdown */}
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -59,17 +82,25 @@ export default function Navbar() {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <Link className="dropdown-item" to="/getallvideos">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/getallvideos")}
+                >
                   Get All Videos
-                </Link>
+                </button>
               </li>
               <li>
-                <Link className="dropdown-item" to="/addvideo">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/addvideo")}
+                >
                   Add Videos
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
+
+          {/* Students Dropdown */}
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -81,18 +112,25 @@ export default function Navbar() {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <Link className="dropdown-item" to="/getallstudents">
+                <button
+                  className="dropdown-item"
+                  onClick={() => goTo("/getallstudents")}
+                >
                   Get All Students
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
-          <Link
-            to="/login"
+
+          {/* Logout Button */}
+          <button
             className="btn ud-auth-btn--primary d-none d-md-inline-block"
+            onClick={() => goTo("/login")}
           >
             Log Out
-          </Link>
+          </button>
+
+          {/* Icon Buttons */}
           <button className="btn btn-link ud-icon-btn">
             <i className="bi bi-cart3"></i>
           </button>

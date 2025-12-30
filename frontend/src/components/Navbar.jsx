@@ -1,19 +1,19 @@
-// src/components/Navbar.jsx
 import { Link } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropdown";
 import { useAuth } from "../contex/AuthContext";
 import "./Navbar.css";
 import "./profiledropdown.css";
-import MyCourses from "./../pages/MyCourses";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  // Show default "normal" navbar initially
+  const isAdmin = user && user.role === "admin";
 
   return (
     <nav
       style={{
         width: "100%",
-
         borderRadius: "35px",
         boxShadow: "0 8px 25px rgba(0, 0, 0, 0.08)",
       }}
@@ -22,13 +22,15 @@ export default function Navbar() {
       <div className="container-xxl">
         {/* LEFT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
-          <Link className="navbar-brand ud-logo" to="/home">
+          <Link
+            className="navbar-brand ud-logo"
+            to={isAdmin ? "/admin" : "/home"}
+          >
             E‑Learn
           </Link>
         </div>
 
         {/* CENTER - Search */}
-        {/* CENTER - Search (SIMPLIFIED) */}
         <form className="ud-search">
           <input
             className="form-control"
@@ -39,33 +41,107 @@ export default function Navbar() {
 
         {/* RIGHT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Courses
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <Link className="dropdown-item" to="/courses">
-                  Get All Courses
-                </Link>
-              </li>
-              <li>
-                <Link className="dropdown-item" to="/my-courses">
-                  My Courses
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {isAdmin ? (
+            <>
+              {/* Admin menus */}
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  Courses
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/allcourses">
+                      Get All Courses
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/addcourse">
+                      Add Course
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/deletecourse">
+                      Delete Course
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-          <button className="btn btn-link ud-icon-btn">
-            <i className="bi bi-cart3"></i>
-          </button>
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  Videos
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/getallvideos">
+                      Get All Videos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/addvideo">
+                      Add Videos
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  Students
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/getallstudents">
+                      Get All Students
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Default normal user navbar */}
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  Courses
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/courses">
+                      Get All Courses
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/my-courses">
+                      My Courses
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              <button className="btn btn-link ud-icon-btn">
+                <i className="bi bi-cart3"></i>
+              </button>
+            </>
+          )}
+
+          {/* Profile / Login */}
           {user ? (
             <ProfileDropdown />
           ) : (

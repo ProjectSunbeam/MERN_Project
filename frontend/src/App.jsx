@@ -21,7 +21,7 @@ import CourseRegister from "./pages/CourseRegister";
 import MyCourses from "./pages/MyCourses";
 import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
-import AboutUs from './pages/AboutUs';
+import AboutUs from "./pages/AboutUs";
 
 import ProfileDropdown from "./components/ProfileDropdown";
 export const LoginContext = createContext();
@@ -36,11 +36,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/aboutus" element = {<AboutUs />}/>
-          <Route
-            path="/home"
-            element={loginStatus ? <Home /> : <Navigate to="/" />}
-          />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+
           <Route
             path="/profile"
             element={loginStatus ? <Profile /> : <Navigate to="/" />}
@@ -78,7 +77,6 @@ function App() {
             element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
 
-          <Route path="/courses" element={<Courses />} />
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/admincourse/:id" element={<AdminCourseDetails />} />
           <Route path="/course-register" element={<CourseRegister />} />

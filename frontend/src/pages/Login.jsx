@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { loginUser } from "../services/userService";
 import { LoginContext } from "./../App";
 import { useAuth } from "../contex/AuthContext";
 import "./Login.css";
@@ -10,32 +9,44 @@ import heroImg from "../assets/hero-Img.png";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigates = useNavigate();
-  const { loginStatus, setLoginStatus } = useContext(LoginContext);
-  const { login: authLogin, user } = useAuth();
+  const navigate = useNavigate();
+  const { setLoginStatus } = useContext(LoginContext);
+  const { login: authLogin } = useAuth();
 
-  const login = async () => {
-    if (email == "") {
-      toast.warn("email must be entered");
-    } else if (password == "") {
-      toast.warn("password must be entered");
-    } else {
-      const result = await authLogin(email, password);
-      sessionStorage.setItem("email", user.email);
-      sessionStorage.setItem("token", user.token);
+  const handleLogin = async () => {
+    if (!email) {
+      toast.warn("Email must be entered");
+      return;
+    }
+    if (!password) {
+      toast.warn("Password must be entered");
+      return;
+    }
 
-      if (result.success) {
-        // const user = result.data;
-        setLoginStatus(true);
-        toast.success("Login successful");
-        if (user.role === "admin") {
-          navigates("/admin");
-        } else {
-          navigates("/home");
-        }
-      } else {
-        toast.error(result.error);
+    const result = await authLogin(email, password);
+
+    if (result.success) {
+      // Get token from sessionStorage (already saved by authLogin)
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Login failed: no token returned");
+        return;
       }
+
+      // Decode token to get email and role
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      sessionStorage.setItem("email", payload.email);
+
+      setLoginStatus(true);
+      toast.success("Login successful");
+
+      if (payload.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
+    } else {
+      toast.error(result.error || "Login failed");
     }
   };
 
@@ -80,7 +91,7 @@ function Login() {
             />
           </div>
 
-          <button className="login-button" type="button" onClick={login}>
+          <button className="login-button" type="button" onClick={handleLogin}>
             Sign In
           </button>
         </div>
