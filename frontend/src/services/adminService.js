@@ -69,13 +69,14 @@ export async function addVideos(course_id, title, youtube_url, description) {
 }
 
 
-export async function getStudents() {
+export async function getStudents(course_id = null) {
   const token = sessionStorage.getItem("token");
 
   const response = await axios.get(
     config.BASE_URL + "/admin/enrolledstudents",
     {
-      headers: { token }
+      headers: { token },
+      params: course_id ? { course_id } : {}
     }
   );
 
