@@ -16,16 +16,18 @@ function AddCourse() {
 
   const addCourses = async (e) => {
     e.preventDefault();
-    if (!course_name) {
+
+    // Validation
+    if (!course_name.trim()) {
       toast.warn("Course name must be entered");
       return;
     }
-    if (!description) {
+    if (!description.trim()) {
       toast.warn("Description must be entered");
       return;
     }
-    if (!fees) {
-      toast.warn("Fees must be entered");
+    if (!fees || isNaN(fees) || Number(fees) <= 0) {
+      toast.warn("Fees must be a positive number");
       return;
     }
     if (!start_date) {
@@ -36,11 +38,20 @@ function AddCourse() {
       toast.warn("End date must be entered");
       return;
     }
-    if (!video_expire_days) {
-      toast.warn("Video expire days must be entered");
+    if (new Date(end_date) < new Date(start_date)) {
+      toast.warn("End date cannot be before start date");
+      return;
+    }
+    if (
+      !video_expire_days ||
+      isNaN(video_expire_days) ||
+      Number(video_expire_days) <= 0
+    ) {
+      toast.warn("Video expire days must be a positive number");
       return;
     }
 
+    // Submit
     try {
       const res = await addCourse(
         course_name,
@@ -59,6 +70,7 @@ function AddCourse() {
       }
     } catch (err) {
       toast.error("Server error");
+      console.error(err);
     }
   };
 
