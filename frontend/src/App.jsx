@@ -13,6 +13,7 @@ import AllCourses from "./pages/AllCourses";
 import GetAllStudents from "./pages/GetAllStudents";
 import GetAllVideos from "./pages/GetAllVideos";
 import AddVideo from "./pages/AddVideo";
+import AboutUs from "./pages/AboutUs";
 
 export const LoginContext = createContext();
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/*" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/aboutus" element={<AboutUs />} />
           {/* Protecting Routes */}
           <Route
             path="/home"
