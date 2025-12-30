@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { loginUser } from "../services/userService";
 import { LoginContext } from "./../App";
+import "./Login.css";
+import heroImg from "../assets/hero-Img.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -35,36 +37,60 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Welcome To Login Page</h1>
-      <br />
-      <div className="form-floating mb-3">
-        <input
-          type="email"
-          className="form-control"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="floatingInput">Email address</label>
+    <div className="login-container">
+      {/* Left illustration */}
+      <div className="login-illustration">
+        <img src={heroImg} alt="Online learning" className="login-image" />
+        <h1 className="login-brand">E‑Learn Hub</h1>
+        <p className="login-tagline">
+          Continue your learning journey with top mentors.
+        </p>
       </div>
-      <div className="form-floating">
-        <input
-          type="password"
-          className="form-control"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="floatingPassword">Password</label>
+
+      {/* Right form */}
+      <div className="login-form-wrapper">
+        <div className="login-card">
+          <h2 className="login-heading">Log in to your account</h2>
+          <p className="login-subheading">Welcome back! Please enter your details.</p>
+
+          <div className="login-form-group">
+            <label className="login-label">Email</label>
+            <input
+              type="email"
+              className="login-input"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="login-form-group">
+            <label className="login-label">Password</label>
+            <input
+              type="password"
+              className="login-input"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            className="login-button"
+            type="button"
+            onClick={login}
+          >
+            Sign In
+          </button>
+
+          <p className="login-footer">
+            New to E‑Learn Hub?{" "}
+            <Link to="/register" className="login-link">
+              Sign up
+            </Link>
+          </p>
+        </div>
       </div>
-      <br />
-      <input
-        className="btn btn-primary"
-        type="submit"
-        value="Sign-In"
-        onClick={login}
-      />
-      <br />
-      <br />
-      don't have an account ? To Create Account{" "}
-      <Link to="/register">Click Here</Link>
     </div>
   );
 }
