@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllCourses } from "../services/courseService";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/AdminNavbar";
 
 function CourseDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
@@ -89,7 +90,7 @@ function CourseDetails() {
                 </div>
 
                 <div className="d-grid">
-                  <button className="btn btn-primary btn-lg">
+                  <button className="btn btn-primary btn-lg" onClick={() => navigate(`/update-course/${id}`)}>
                     Update Course
                   </button>
                 </div>

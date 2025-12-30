@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getProfile } from "../services/userService";
+import { toast } from "react-toastify";
 
 function Profile() {
   const [email, setEmail] = useState("");
@@ -15,9 +16,16 @@ function Profile() {
     const token = sessionStorage.getItem("token");
     const result = await getProfile(token);
     if (result.status == "Success") {
-      const user = result.data[0];
-      setEmail(user.email);
-      setRole(user.role);
+      const profile = result.data;
+      if (profile.user) {
+        setEmail(profile.user.email);
+        // Note: role is not in profile, it's in token
+        // You might need to decode token for role
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setRole(payload.role);
+      } else {
+        toast.error("Profile not available. Please login again...");
+      }
     } else {
       console.log(result.error);
       toast.error(result.error);
