@@ -16,21 +16,26 @@ function CourseRegister() {
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Optional: block direct access if no course data
+  // 🚫 block direct access if no course data
   useEffect(() => {
     if (!state?.courseId) {
       navigate("/courses");
     }
-  }, []);
+  }, [state, navigate]);
+
+  // 🔁 sync email if user logs in later
+  useEffect(() => {
+    if (loggedEmail) {
+      setEmail(loggedEmail);
+    }
+  }, [loggedEmail]);
 
   const registerCourse = async () => {
-    // 🔴 Empty check
     if (!name || !email || !mobile) {
       toast.warn("Please fill all fields");
       return;
     }
 
-    // 🔴 Mobile validation
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(mobile)) {
       toast.warn("Mobile number must be exactly 10 digits");
@@ -47,19 +52,16 @@ function CourseRegister() {
         mobile_no: mobile,
       });
 
-      console.log("REGISTER RESULT:", result);
-
-      // 🔴 Already registered
+      // already registered
       if (result.status === "exists") {
         toast.warn("User already registered for this course");
         setLoading(false);
         return;
       }
 
-      // ✅ Success
       if (result.status === "success" || result.data?.affectedRows === 1) {
         toast.success("Course registered successfully");
-        navigate("/my-courses"); // 🔥 directly to My Courses
+        navigate("/my-courses");
       } else {
         toast.error("Registration failed");
       }
@@ -104,12 +106,17 @@ function CourseRegister() {
               onChange={(e) => setName(e.target.value)}
             />
 
-            {/* 🔒 FIXED EMAIL */}
+            {/* 🔒 Email logic */}
             <input
               className="form-control mb-3"
               placeholder="Email"
               type="email"
               value={email}
+              onChange={(e) => {
+                if (!loggedEmail) {
+                  setEmail(e.target.value);
+                }
+              }}
               disabled={!!loggedEmail}
             />
 
