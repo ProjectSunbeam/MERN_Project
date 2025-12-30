@@ -1,15 +1,15 @@
-// src/components/ProfileDropdown.jsx
+// src/components/ProfileDropdown.jsx - UPDATED
 import React, { useState } from "react";
 import "./profiledropdown.css";
 
-import { KeyRound, Package, LogOut, ChevronRight, User } from "lucide-react";
+import { KeyRound, User, LogOut, ChevronRight } from "lucide-react";
 import { useAuth } from "../contex/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { getProfile } from "../services/userService"; // 🆕 Import
+
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, profile, logout } = useAuth();  // 🆕 profile mil gaya!
+  const { user, profile, logout } = useAuth();
   const navigate = useNavigate();
 
   const avatarText = user?.email?.slice(0, 2).toUpperCase() || "WL";
@@ -19,9 +19,10 @@ export default function ProfileDropdown() {
     navigate("/change-password");
   };
 
-  const handlePurchases = () => {
+  // 🆕 PROFILE PAGE
+  const handleProfile = () => {
     setIsOpen(false);
-    navigate("/purchases");
+    navigate("/profile");
   };
 
   const handleLogout = () => {
@@ -61,15 +62,16 @@ export default function ProfileDropdown() {
           </div>
 
           <div className="p-3">
-            <button onClick={handleChangePassword} className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between p-3 mb-2">
-              <KeyRound size={20} className="text-primary me-3" />
-              <span>Change Password</span>
+            {/* 🆕 PROFILE BUTTON */}
+            <button onClick={handleProfile} className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between p-3 mb-2">
+              <User size={20} className="text-primary me-3" />
+              <span>Profile ({profile?.enrolledCourses?.length || 0})</span>
               <ChevronRight size={16} />
             </button>
 
-            <button onClick={handlePurchases} className="btn btn-outline-success w-100 d-flex align-items-center justify-content-between p-3 mb-2">
-              <Package size={20} className="text-success me-3" />
-              <span>Purchases ({profile?.enrolledCourses?.length || 0})</span>
+            <button onClick={handleChangePassword} className="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between p-3 mb-2">
+              <KeyRound size={20} className="text-primary me-3" />
+              <span>Change Password</span>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -85,4 +87,3 @@ export default function ProfileDropdown() {
     </div>
   );
 }
-
