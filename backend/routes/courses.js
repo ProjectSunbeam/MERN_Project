@@ -86,18 +86,34 @@ router.put("/update/:course_id", roleAuthorization, (req, res) => {
 router.delete("/delete/:course_id", roleAuthorization, (req, res) => {
   const { course_id } = req.params;
 
-  const sql = "DELETE FROM courses WHERE course_id = ?";
-
-  pool.query(sql, [course_id], (error, data) => {
-    if (error) {
-      return res.send(result.createResult(error));
+  // First, delete all videos in this course (since course_id is NOT NULL)
+  const deleteVideosSql = "DELETE FROM videos WHERE course_id = ?";
+  pool.query(deleteVideosSql, [course_id], (videoError, videoData) => {
+    if (videoError) {
+      return res.send(result.createResult(videoError));
     }
 
-    if (data.affectedRows === 0) {
-      return res.send(result.createResult("Course not found"));
-    }
+    // Then, set course_id to NULL for all students enrolled in this course
+    const updateStudentsSql = "UPDATE students SET course_id = NULL WHERE course_id = ?";
+    pool.query(updateStudentsSql, [course_id], (studentError, studentData) => {
+      if (studentError) {
+        return res.send(result.createResult(studentError));
+      }
 
-    res.send(result.createResult(null, "Course deleted successfully"));
+      // Then delete the course
+      const deleteCourseSql = "DELETE FROM courses WHERE course_id = ?";
+      pool.query(deleteCourseSql, [course_id], (courseError, courseData) => {
+        if (courseError) {
+          return res.send(result.createResult(courseError));
+        }
+
+        if (courseData.affectedRows === 0) {
+          return res.send(result.createResult("Course not found"));
+        }
+
+        res.send(result.createResult(null, "Course deleted successfully"));
+      });
+    });
   });
 });
 
