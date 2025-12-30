@@ -6,7 +6,13 @@ const config = require("../utils/config");
 function authUser(req, res, next) {
   const path = req.url;
   console.log(path);
-  if (path == "/users/signin" || path == "/users/signup") {
+  if (
+    path == "/users/signin" ||
+    path == "/users/signup" ||
+    path == "/courses/all-courses" ||
+    path == "/courses/all-active-courses" ||
+    path == "/students/register-to-course"
+  ) {
     next();
   } else {
     const token = req.headers.token;

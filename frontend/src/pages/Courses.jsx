@@ -9,22 +9,13 @@ function Courses() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-
-    if (!token) {
-      toast.error("Please login to view courses");
-      navigate("/");
-      return;
-    }
-
     getAllCourses();
   }, []);
 
   const getAllCourses = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await getCourses(token);
+    const result = await getCourses();
 
-    if (result.status?.toLowerCase() === "success") {
+    if (result.status === "Success") {
       setCourse(result.data);
     } else {
       toast.error(result.error || "Failed to load courses");
