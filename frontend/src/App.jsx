@@ -24,6 +24,7 @@ import AddVideoForm from "./pages/AddVideoForm";
 import AboutUs from "./pages/AboutUs";
 
 import ProfileDropdown from "./components/ProfileDropdown";
+import ChangePassword from "./components/ChangePassword";
 export const LoginContext = createContext();
 
 function App() {
@@ -43,6 +44,10 @@ function App() {
           <Route
             path="/profile"
             element={loginStatus ? <Profile /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/change-password"
+            element={loginStatus ? <ChangePassword /> : <Navigate to="/" />}
           />
           <Route
             path="/admin"

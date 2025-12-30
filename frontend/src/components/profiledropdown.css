@@ -65,14 +65,7 @@
 }
 
 .dropdown-menu > div:first-child::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-  animation: pulse 3s ease-in-out infinite;
+  display: none !important;
 }
 
 @keyframes pulse {
@@ -234,10 +227,9 @@
     width: 17.5rem !important;
   }
   
-  .dropdown-menu > div:first-child {
-    padding: 1.25rem !important;
-  }
-  
+ .dropdown-menu > div:first-child {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
   .dropdown-menu > div:first-child .rounded-circle {
     width: 2.75rem !important;
     height: 2.75rem !important;
@@ -275,4 +267,8 @@
     padding: 0.625rem !important;
     font-size: 0.875rem;
   }
+}
+
+.dropdown-menu .btn::before {
+  content: none !important;
 }
