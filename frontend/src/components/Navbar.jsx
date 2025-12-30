@@ -153,12 +153,6 @@ export default function Navbar() {
               >
                 Log in
               </Link>
-              <Link
-                to="/register"
-                className="btn ud-auth-btn--primary d-none d-md-inline-block"
-              >
-                Sign up
-              </Link>
             </>
           )}
         </div>
