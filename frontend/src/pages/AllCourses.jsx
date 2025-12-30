@@ -3,7 +3,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import { getCourses } from "../services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
- import "./AllCourses.css"; // Import the custom CSS.css";
+import "./AllCourses.css"; // Import the custom CSS.css";
 
 function Home() {
   const [course, setCourse] = useState([]);
@@ -15,7 +15,7 @@ function Home() {
   }, []);
 
   const getAllCourses = async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const result = await getCourses(token);
 
     if (result.status === "Success") {
