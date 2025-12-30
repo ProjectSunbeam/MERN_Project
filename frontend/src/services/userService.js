@@ -23,7 +23,7 @@ export async function getCourses(token) {
 }
 
 export async function getProfile(token) {
-  const URL = config.BASE_URL + "/users";
+  const URL = config.BASE_URL + "/users/profile";  // 🆕 "/profile" add kar
   const headers = { token };
   const response = await axios.get(URL, { headers });
   return response.data;

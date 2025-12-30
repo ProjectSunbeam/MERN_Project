@@ -21,59 +21,63 @@ import CourseRegister from "./pages/CourseRegister";
 import MyCourses from "./pages/MyCourses";
 import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
+import { useAuth } from "./contex/AuthContext";
 
 export const LoginContext = createContext();
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState(false);
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <LoginContext.Provider value={{ loginStatus, setLoginStatus }}>
-        <Routes>
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           <Route
             path="/home"
-            element={loginStatus ? <Home /> : <Navigate to="/" />}
+            element={user ? <Home /> : <Navigate to="/" />}
           />
           <Route
             path="/profile"
-            element={loginStatus ? <Profile /> : <Navigate to="/" />}
+            element={user ? <Profile /> : <Navigate to="/" />}
           />
           <Route
             path="/admin"
-            element={loginStatus ? <Admin /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <Admin /> : <Navigate to="/" />}
           />
           <Route
             path="/addcourse"
-            element={loginStatus ? <AddCourse /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <AddCourse /> : <Navigate to="/" />}
           />
           <Route
             path="/allcourses"
-            element={loginStatus ? <AllCourses /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <AllCourses /> : <Navigate to="/" />}
           />
           <Route
             path="/getallstudents"
-            element={loginStatus ? <GetAllStudents /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <GetAllStudents /> : <Navigate to="/" />}
           />
           <Route
             path="/getallvideos"
-            element={loginStatus ? <GetAllVideos /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <GetAllVideos /> : <Navigate to="/" />}
           />
           <Route
             path="/addvideo"
-            element={loginStatus ? <AddVideo /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <AddVideo /> : <Navigate to="/" />}
           />
           <Route
             path="/addvideoform/:courseId"
-            element={loginStatus ? <AddVideoForm /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <AddVideoForm /> : <Navigate to="/" />}
           />
           <Route
             path="/deletecourse"
-            element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
+            element={user && user.role === 'admin' ? <DeleteCourse /> : <Navigate to="/" />}
           />
 
           <Route path="/courses" element={<Courses />} />
@@ -87,7 +91,6 @@ function App() {
             element={<MyCourseVideos />}
           />
         </Routes>
-      </LoginContext.Provider>
 
       <ToastContainer />
     </>

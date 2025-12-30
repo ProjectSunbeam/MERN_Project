@@ -99,6 +99,55 @@
   border-radius: 4px;
 }
 
+/* ========== DROPDOWN BUTTON ========== */
+.dropdown .btn-secondary {
+  font-size: 14px;
+  color: #1c1d1f;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-weight: 400;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+.dropdown .btn-secondary:hover,
+.dropdown .btn-secondary:focus,
+.dropdown .btn-secondary:active,
+.dropdown .btn-secondary.show {
+  color: #5624d0;
+  background-color: #f7f9fa !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 4px;
+}
+
+.dropdown .btn-secondary::after {
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  border: 1px solid #d1d7dc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-top: 8px;
+  min-width: 200px;
+}
+
+.dropdown-item {
+  font-size: 14px;
+  color: #1c1d1f;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f7f9fa;
+  color: #5624d0;
+}
+
 /* ========== ICON BUTTONS ========== */
 .ud-icon-btn {
   color: #1c1d1f;
@@ -106,12 +155,18 @@
   padding: 6px 8px;
   transition: all 0.2s ease;
   position: relative;
+  text-decoration: none;
 }
 
 .ud-icon-btn:hover {
   color: #5c40a3;
   background-color: #f7f9fa;
   border-radius: 4px;
+}
+
+.ud-icon-btn:focus {
+  box-shadow: none;
+  outline: none;
 }
 
 .ud-icon-btn i {
@@ -166,10 +221,166 @@
   box-shadow: 0 2px 8px rgba(86, 36, 208, 0.3);
 }
 
+/* ========== PROFILE DROPDOWN ========== */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.profile-trigger:hover {
+  opacity: 0.8;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5624d0 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #e0e7ff;
+  transition: all 0.2s ease;
+}
+
+.profile-trigger:hover .profile-avatar {
+  border-color: #5624d0;
+  transform: scale(1.05);
+}
+
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #d1d7dc;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.profile-dropdown:hover .profile-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.profile-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #5624d0 0%, #8b5cf6 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-info .profile-avatar {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-details h6 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profile-details p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.profile-menu {
+  padding: 8px 0;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #1c1d1f;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-menu-item:hover {
+  background-color: #f7f9fa;
+  color: #5624d0;
+}
+
+.profile-menu-item i {
+  font-size: 18px;
+  color: #6a6f73;
+  width: 20px;
+  text-align: center;
+}
+
+.profile-menu-item:hover i {
+  color: #5624d0;
+}
+
+.profile-menu-divider {
+  height: 1px;
+  background-color: #e0e7ff;
+  margin: 8px 0;
+}
+
+.profile-menu-item.logout {
+  color: #dc2626;
+}
+
+.profile-menu-item.logout:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.profile-menu-item.logout i {
+  color: #dc2626;
+}
+
 /* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 991px) {
   .ud-search {
     max-width: 400px;
+  }
+  
+  .profile-dropdown-menu {
+    width: 280px;
   }
 }
 
@@ -191,6 +402,10 @@
 
   .ud-icon-btn {
     font-size: 22px;
+  }
+  
+  .profile-dropdown-menu {
+    width: 260px;
   }
 }
 
@@ -216,6 +431,17 @@
   .ud-icon-btn {
     font-size: 20px;
     padding: 4px 6px;
+  }
+  
+  .profile-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  
+  .profile-dropdown-menu {
+    width: 240px;
+    right: -20px;
   }
 }
 
