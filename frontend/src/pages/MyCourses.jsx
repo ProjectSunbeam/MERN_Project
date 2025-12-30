@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { mycourses } from "../services/courseService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -14,19 +15,26 @@ function MyCourses() {
 
   const loadMyCourses = async () => {
     const email = sessionStorage.getItem("email");
+    const token = sessionStorage.getItem("token");
 
-    if (!email) {
-      console.log("No email found in session");
-      setLoading(false);
+    if (!email || !token) {
+      toast.error("Please login to view your courses");
+      navigate("/");
       return;
     }
 
-    const result = await mycourses(email);
-    console.log("MY COURSES RESULT:", result);
+    try {
+      const result = await mycourses(email, token);
+      console.log("MY COURSES RESULT:", result);
 
-    if (result.status === "success") {
-      setCourses(result.data);
+      if (result.status === "success") {
+        setCourses(result.data);
+      }
+    } catch (err) {
+      console.log("ERROR:", err);
+      toast.error("Failed to load courses");
     }
+
     setLoading(false);
   };
 
@@ -49,16 +57,13 @@ function MyCourses() {
                     <h5>{c.course_name}</h5>
                     <p className="text-muted">{c.description}</p>
                     <strong>₹ {c.fees}</strong>
+
                     <div className="mt-3">
                       <button
                         className="btn btn-primary btn-sm"
-                        onClick={() => {
-                          console.log(
-                            "Navigating to:",
-                            `/my-course/${c.course_id}/videos`
-                          );
-                          navigate(`/my-course/${c.course_id}/videos`);
-                        }}
+                        onClick={() =>
+                          navigate(`/my-course/${c.course_id}/videos`)
+                        }
                       >
                         View Videos
                       </button>

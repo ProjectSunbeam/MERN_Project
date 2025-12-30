@@ -6,38 +6,91 @@ const cryptojs = require("crypto-js");
 
 const router = express.Router();
 
+// router.post("/register-to-course", (req, res) => {
+//   const { name, email, course_id, mobile_no } = req.body;
+//   const sql1 = "select * from users where email = ?";
+//   pool.query(sql1, [email], (error, data) => {
+//     if (data.length == 0) {
+//       const sql2 = "insert into users(email,password) values (?, ?)";
+//       const password = "student";
+//       const hashedPassword = cryptojs.SHA256(password).toString();
+//       pool.query(sql2, [email, hashedPassword], (error, data) => {
+//         if (error) {
+//           return res.status(401).send({
+//             msg: error,
+//           });
+//         }
+//       });
+//       const sql =
+//         "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
+//       pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
+//         return res.send(result.createResult(error, data));
+//       });
+//     } else {
+//       const sql =
+//         "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
+//       pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
+//         if (error) {
+//           return res.send({ error: error });
+//         }
+//         return res.send({
+//           data: data,
+//         });
+//       });
+//     }
+//   });
+// });
+
 router.post("/register-to-course", (req, res) => {
   const { name, email, course_id, mobile_no } = req.body;
-  const sql1 = "select * from users where email = ?";
-  pool.query(sql1, [email], (error, data) => {
-    if (data.length == 0) {
-      const sql2 = "insert into users(email,password) values (?, ?)";
-      const password = "student";
-      const hashedPassword = cryptojs.SHA256(password).toString();
-      pool.query(sql2, [email, hashedPassword], (error, data) => {
-        if (error) {
-          return res.status(401).send({
-            msg: error,
-          });
-        }
-      });
-      const sql =
-        "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
-      pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
-        return res.send(result.createResult(error, data));
-      });
-    } else {
-      const sql =
-        "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
-      pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
-        if (error) {
-          return res.send({ error: error });
-        }
-        return res.send({
-          data: data,
-        });
+
+  const checkStudentSql =
+    "SELECT * FROM students WHERE email = ? AND course_id = ?";
+
+  pool.query(checkStudentSql, [email, course_id], (err, rows) => {
+    if (err) {
+      return res.send({ status: "error", error: err });
+    }
+
+    if (rows.length > 0) {
+      return res.send({
+        status: "exists",
+        message: "User already registered for this course",
       });
     }
+
+    const sql1 = "select * from users where email = ?";
+    pool.query(sql1, [email], (error, data) => {
+      if (data.length == 0) {
+        const sql2 = "insert into users(email,password) values (?, ?)";
+        const password = "student";
+        const hashedPassword = cryptojs.SHA256(password).toString();
+
+        pool.query(sql2, [email, hashedPassword], (error, data) => {
+          if (error) {
+            return res.status(401).send({ msg: error });
+          }
+        });
+
+        const sql =
+          "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
+        pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
+          return res.send(result.createResult(error, data));
+        });
+      } else {
+        const sql =
+          "insert into students(name,email,course_id,mobile_no) values(?,?,?,?)";
+        pool.query(sql, [name, email, course_id, mobile_no], (error, data) => {
+          if (error) {
+            return res.send({ error: error });
+          }
+          return res.send({
+            status: "success",
+            data: data,
+          });
+        });
+      }
+    });
   });
 });
 
