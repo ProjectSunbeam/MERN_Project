@@ -67,3 +67,17 @@ export async function addVideos(course_id, title, youtube_url, description) {
 
   return response.data;
 }
+
+
+export async function getStudents() {
+  const token = sessionStorage.getItem("token");
+
+  const response = await axios.get(
+    config.BASE_URL + "/admin/enrolledstudents",
+    {
+      headers: { token }
+    }
+  );
+
+  return response.data;
+}
