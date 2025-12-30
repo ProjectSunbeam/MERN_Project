@@ -3,6 +3,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import { getCourses } from "../services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import "./AllCourses.css"; // Import the custom CSS.css";
 
 function Home() {
   const [course, setCourse] = useState([]);
@@ -45,9 +46,6 @@ function Home() {
 
                 {/* Card Body */}
                 <div className="card-body d-flex flex-column">
-                  <h5 className="card-title text-center">
-                    Course Id : {e.course_id}
-                  </h5>
                   <h5 className="card-title text-center">{e.course_name}</h5>
 
                   <p className="text-muted text-center flex-grow-1">

@@ -1,8 +1,13 @@
 // src/components/Navbar.jsx
 import { Link } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown";
+import { useAuth } from "../contex/AuthContext";
 import "./Navbar.css";
+import "./profiledropdown.css";
 
 export default function Navbar() {
+  const { user } = useAuth();
+
   return (
     <nav   style={{
     width: "100%",
@@ -20,16 +25,15 @@ className="navbar navbar-light bg-white ud-navbar">
         </div>
 
         {/* CENTER - Search */}
-        <form className="ud-search">
-          <span className="ud-search-icon">
-            <i className="bi bi-search"></i>
-          </span>
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search for anything"
-          />
-        </form>
+      {/* CENTER - Search (SIMPLIFIED) */}
+<form className="ud-search">
+  <input
+    className="form-control"
+    type="search"
+    placeholder="Search for anything"
+  />
+</form>
+
 
         {/* RIGHT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
@@ -59,22 +63,26 @@ className="navbar navbar-light bg-white ud-navbar">
           <button className="btn btn-link ud-icon-btn">
             <i className="bi bi-cart3"></i>
           </button>
-          <button className="btn btn-link ud-icon-btn">
-            <i className="bi bi-person-circle"></i>
-          </button>
 
-          <Link
-            to="/login"
-            className="btn btn-outline-dark ud-auth-btn d-none d-md-inline-block"
-          >
-            Log in
-          </Link>
-          <Link
-            to="/register"
-            className="btn ud-auth-btn--primary d-none d-md-inline-block"
-          >
-            Sign up
-          </Link>
+          {user ? (
+            <ProfileDropdown />
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="btn btn-outline-dark ud-auth-btn d-none d-md-inline-block"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/register"
+                className="btn ud-auth-btn--primary d-none d-md-inline-block"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
+
         </div>
       </div>
     </nav>

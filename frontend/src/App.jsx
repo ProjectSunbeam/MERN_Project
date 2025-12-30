@@ -23,6 +23,7 @@ import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
 import AboutUs from './pages/AboutUs';
 
+import ProfileDropdown from "./components/ProfileDropdown";
 export const LoginContext = createContext();
 
 function App() {
