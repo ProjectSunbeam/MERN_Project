@@ -29,12 +29,17 @@ export async function addCourse(
 }
 
 export async function deleteCourses(course_id) {
-  const URL = config.BASE_URL + `/courses/delete/${course_id}`;
   const token = sessionStorage.getItem("token");
-  const result = await axios.delete(URL, {
-    headers: { token },
+
+  const URL = config.BASE_URL + "/courses/delete/" + course_id;
+
+  const response = await axios.delete(URL, {
+    headers: {
+      token: token
+    }
   });
-  return result.data;
+
+  return response.data;
 }
 
 export async function getAllVideoss(token) {
@@ -97,3 +102,4 @@ export async function getAllCourses() {
 
   return response.data;
 }
+
