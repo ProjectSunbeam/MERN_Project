@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { registerCourseService } from "../services/courseService";
@@ -8,10 +8,20 @@ function CourseRegister() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
+  // 🔥 get logged-in email
+  const loggedEmail = sessionStorage.getItem("email");
+
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(loggedEmail || "");
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Optional: block direct access if no course data
+  useEffect(() => {
+    if (!state?.courseId) {
+      navigate("/courses");
+    }
+  }, []);
 
   const registerCourse = async () => {
     // 🔴 Empty check
@@ -20,7 +30,7 @@ function CourseRegister() {
       return;
     }
 
-    // 🔴 Mobile validation (10 digits)
+    // 🔴 Mobile validation
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(mobile)) {
       toast.warn("Mobile number must be exactly 10 digits");
@@ -48,8 +58,8 @@ function CourseRegister() {
 
       // ✅ Success
       if (result.status === "success" || result.data?.affectedRows === 1) {
-        toast.success("Registration successful. Please login.");
-        navigate("/login");
+        toast.success("Course registered successfully");
+        navigate("/my-courses"); // 🔥 directly to My Courses
       } else {
         toast.error("Registration failed");
       }
@@ -94,15 +104,15 @@ function CourseRegister() {
               onChange={(e) => setName(e.target.value)}
             />
 
+            {/* 🔒 FIXED EMAIL */}
             <input
               className="form-control mb-3"
               placeholder="Email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              disabled={!!loggedEmail}
             />
 
-            {/* Mobile with numeric input */}
             <input
               className="form-control mb-3"
               placeholder="Mobile (10 digits)"
