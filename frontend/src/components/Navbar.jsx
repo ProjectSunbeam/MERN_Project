@@ -4,18 +4,21 @@ import ProfileDropdown from "./ProfileDropdown";
 import { useAuth } from "../contex/AuthContext";
 import "./Navbar.css";
 import "./profiledropdown.css";
+import MyCourses from "./../pages/MyCourses";
 
 export default function Navbar() {
   const { user } = useAuth();
 
   return (
-    <nav   style={{
-    width: "100%",
+    <nav
+      style={{
+        width: "100%",
 
-    borderRadius: "35px",
-    boxShadow: "0 8px 25px rgba(0, 0, 0, 0.08)",
-  }}
-className="navbar navbar-light bg-white ud-navbar">
+        borderRadius: "35px",
+        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.08)",
+      }}
+      className="navbar navbar-light bg-white ud-navbar"
+    >
       <div className="container-xxl">
         {/* LEFT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
@@ -25,15 +28,14 @@ className="navbar navbar-light bg-white ud-navbar">
         </div>
 
         {/* CENTER - Search */}
-      {/* CENTER - Search (SIMPLIFIED) */}
-<form className="ud-search">
-  <input
-    className="form-control"
-    type="search"
-    placeholder="Search for anything"
-  />
-</form>
-
+        {/* CENTER - Search (SIMPLIFIED) */}
+        <form className="ud-search">
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search for anything"
+          />
+        </form>
 
         {/* RIGHT group */}
         <div className="d-flex align-items-center gap-3 flex-shrink-0">
@@ -48,13 +50,13 @@ className="navbar navbar-light bg-white ud-navbar">
             </button>
             <ul className="dropdown-menu">
               <li>
-                <Link className="dropdown-item" to="/home">
+                <Link className="dropdown-item" to="/courses">
                   Get All Courses
                 </Link>
               </li>
               <li>
-                <Link className="dropdown-item" to="/home">
-                  Register To Course
+                <Link className="dropdown-item" to="/my-courses">
+                  My Courses
                 </Link>
               </li>
             </ul>
@@ -82,7 +84,6 @@ className="navbar navbar-light bg-white ud-navbar">
               </Link>
             </>
           )}
-
         </div>
       </div>
     </nav>
