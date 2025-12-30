@@ -23,8 +23,22 @@ export async function getCourses(token) {
 }
 
 export async function getProfile(token) {
-  const URL = config.BASE_URL + "/users/profile";  // 🆕 "/profile" add kar
+  const URL = config.BASE_URL + "/users/profile";  // "/profile" add kar
   const headers = { token };
   const response = await axios.get(URL, { headers });
+  return response.data;
+}
+
+//  ADD THIS FUNCTION
+export async function changePassword( newPassword, token) {
+  const URL = config.BASE_URL + "/users/change-password";  // Backend endpoint
+  const body = { newPassword };
+  
+  const headers = { 
+    "Content-Type": "application/json",
+    token  // Your existing token header pattern
+  };
+  
+  const response = await axios.post(URL, body, { headers });
   return response.data;
 }
