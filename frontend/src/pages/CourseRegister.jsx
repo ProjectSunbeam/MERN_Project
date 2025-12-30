@@ -8,7 +8,6 @@ function CourseRegister() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  // 🔥 get logged-in email
   const loggedEmail = sessionStorage.getItem("email");
 
   const [name, setName] = useState("");
@@ -16,14 +15,12 @@ function CourseRegister() {
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🚫 block direct access if no course data
   useEffect(() => {
     if (!state?.courseId) {
       navigate("/courses");
     }
   }, [state, navigate]);
 
-  // 🔁 sync email if user logs in later
   useEffect(() => {
     if (loggedEmail) {
       setEmail(loggedEmail);
@@ -52,7 +49,6 @@ function CourseRegister() {
         mobile_no: mobile,
       });
 
-      // already registered
       if (result.status === "exists") {
         toast.warn("User already registered for this course");
         setLoading(false);
@@ -79,7 +75,6 @@ function CourseRegister() {
 
       <div className="container my-5">
         <div className="col-md-8 mx-auto">
-          {/* Course Info */}
           <div className="card mb-4">
             <table className="table mb-0">
               <tbody>
@@ -95,7 +90,6 @@ function CourseRegister() {
             </table>
           </div>
 
-          {/* Registration Form */}
           <div className="card p-4 shadow">
             <h3 className="text-center mb-4">Register to Course</h3>
 
@@ -103,10 +97,16 @@ function CourseRegister() {
               className="form-control mb-3"
               placeholder="Full Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                // Allow only letters and spaces
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  setName(value);
+                }
+              }}
             />
 
-            {/* 🔒 Email logic */}
             <input
               className="form-control mb-3"
               placeholder="Email"
