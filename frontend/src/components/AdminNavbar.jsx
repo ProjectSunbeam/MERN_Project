@@ -129,14 +129,6 @@ export default function AdminNavbar() {
           >
             Log Out
           </button>
-
-          {/* Icon Buttons */}
-          <button className="btn btn-link ud-icon-btn">
-            <i className="bi bi-cart3"></i>
-          </button>
-          <button className="btn btn-link ud-icon-btn">
-            <i className="bi bi-person-circle"></i>
-          </button>
         </div>
       </div>
     </nav>

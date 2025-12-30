@@ -36,9 +36,7 @@ function CourseDetails() {
     return (
       <>
         <AdminNavbar />
-        <h4 className="text-center mt-5 text-danger">
-          Course not found or still loading
-        </h4>
+        <h4 className="text-center mt-5 text-danger">Course Expired !!!</h4>
       </>
     );
   }
