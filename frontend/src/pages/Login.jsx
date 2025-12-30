@@ -22,6 +22,7 @@ function Login() {
       console.log(result);
       if (result.status == "Success") {
         setLoginStatus(true);
+        sessionStorage.setItem("email", result.data.email);
         sessionStorage.setItem("token", result.data.token);
         toast.success("Login successful");
         if (result.data.role == "admin") {
