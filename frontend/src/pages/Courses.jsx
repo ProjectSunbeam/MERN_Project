@@ -9,7 +9,14 @@ function Courses() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("course Loaded");
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login to view courses");
+      navigate("/");
+      return;
+    }
+
     getAllCourses();
   }, []);
 
@@ -17,21 +24,12 @@ function Courses() {
     const token = sessionStorage.getItem("token");
     const result = await getCourses(token);
 
-    if (result.status === "Success") {
+    if (result.status?.toLowerCase() === "success") {
       setCourse(result.data);
     } else {
-      toast.error(result.error);
+      toast.error(result.error || "Failed to load courses");
     }
   };
-
-  // const loadCourses = async () => {
-  //   const token = sessionStorage.getItem("token");
-  //   const result = await getAllCourses(token);
-
-  //   if (result.status === "success") {
-  //     setCourses(result.data);
-  //   }
-  // };
 
   return (
     <>
@@ -44,7 +42,6 @@ function Courses() {
               className="col-12 col-sm-6 col-md-4 col-lg-3"
             >
               <div className="card h-100 shadow-sm border-0">
-                {/* Image Placeholder */}
                 <div
                   className="d-flex align-items-center justify-content-center bg-light"
                   style={{ height: "180px", fontWeight: "600" }}
@@ -52,7 +49,6 @@ function Courses() {
                   Course Image
                 </div>
 
-                {/* Card Body */}
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title text-center">{e.course_name}</h5>
 

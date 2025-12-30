@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { registerCourseService } from "../services/courseService";
+import { toast } from "react-toastify";
 
 function CourseRegister() {
   const { state } = useLocation();
@@ -10,12 +11,23 @@ function CourseRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const registerCourse = async () => {
+    // 🔴 Empty check
     if (!name || !email || !mobile) {
-      alert("Please fill all fields");
+      toast.warn("Please fill all fields");
       return;
     }
+
+    // 🔴 Mobile validation (10 digits)
+    const mobileRegex = /^[0-9]{10}$/;
+    if (!mobileRegex.test(mobile)) {
+      toast.warn("Mobile number must be exactly 10 digits");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const result = await registerCourseService({
@@ -25,21 +37,34 @@ function CourseRegister() {
         mobile_no: mobile,
       });
 
-      if (result.data?.affectedRows === 1) {
-        sessionStorage.setItem("email", email);
-        navigate("/my-courses");
+      console.log("REGISTER RESULT:", result);
+
+      // 🔴 Already registered
+      if (result.status === "exists") {
+        toast.warn("User already registered for this course");
+        setLoading(false);
+        return;
+      }
+
+      // ✅ Success
+      if (result.status === "success" || result.data?.affectedRows === 1) {
+        toast.success("Registration successful. Please login.");
+        navigate("/login");
       } else {
-        alert("Registration failed");
+        toast.error("Registration failed");
       }
     } catch (error) {
-      console.log("REGISTER ERROR", error);
-      alert("Something went wrong");
+      console.log("REGISTER ERROR:", error);
+      toast.error("Something went wrong");
     }
+
+    setLoading(false);
   };
 
   return (
     <>
       <Navbar />
+
       <div className="container my-5">
         <div className="col-md-8 mx-auto">
           {/* Course Info */}
@@ -48,43 +73,51 @@ function CourseRegister() {
               <tbody>
                 <tr>
                   <th>Course Name</th>
-                  <td>{state.courseName}</td>
+                  <td>{state?.courseName}</td>
                 </tr>
                 <tr>
                   <th>Fees (₹)</th>
-                  <td>{state.fees}</td>
+                  <td>{state?.fees}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          {/* Form */}
+          {/* Registration Form */}
           <div className="card p-4 shadow">
             <h3 className="text-center mb-4">Register to Course</h3>
 
             <input
               className="form-control mb-3"
               placeholder="Full Name"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
             <input
               className="form-control mb-3"
               placeholder="Email"
+              type="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
+            {/* Mobile with numeric input */}
             <input
               className="form-control mb-3"
-              placeholder="Mobile"
-              onChange={(e) => setMobile(e.target.value)}
+              placeholder="Mobile (10 digits)"
+              type="tel"
+              maxLength={10}
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
             />
 
             <button
               className="btn btn-info btn-lg text-white"
               onClick={registerCourse}
+              disabled={loading}
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
           </div>
         </div>
