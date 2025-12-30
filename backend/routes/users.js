@@ -68,29 +68,47 @@ router.delete("/", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  const email = req.headers.email;
-  const sql = `
-    SELECT u.name, u.email, u.mobile, 
-           s.reg_no, s.course_id, c.course_name, c.fees, c.start_date, c.end_date
-    FROM users u 
-    LEFT JOIN students s ON u.email = s.email
-    LEFT JOIN courses c ON s.course_id = c.course_id 
-    WHERE u.email = ?
-  `;
-  pool.query(sql, [email], (error, data) => {
-    if (error) {
-      return res.send(result.createResult(error));
-    }
+  const token = req.headers.token; // ✅ TOKEN LE (userServices se aa raha)
+  
+  if (!token) {
+    return res.send(result.createResult("Token required"));
+  }
+  
+  try {
+    const decoded = jwt.verify(token, config.SECRET); // ✅ TOKEN VERIFY
+    const email = decoded.email; // ✅ Token se email nikal
     
-    // Group courses by user
-    const profileData = {
-      user: { name: data[0]?.name, email: data[0]?.email, mobile: data[0]?.mobile },
-      enrolledCourses: data.filter(row => row.reg_no) // Only courses with reg_no
-    };
+    const sql = `
+      SELECT u.name, u.email, u.mobile, 
+             s.reg_no, s.course_id, c.course_name, c.fees, c.start_date, c.end_date
+      FROM users u 
+      LEFT JOIN students s ON u.email = s.email
+      LEFT JOIN courses c ON s.course_id = c.course_id 
+      WHERE u.email = ?
+    `;
     
-    res.send(result.createResult(null, profileData));
-  });
+    pool.query(sql, [email], (error, data) => { // ✅ Verified email use
+      if (error) {
+        return res.send(result.createResult(error));
+      }
+      
+      const profileData = {
+        user: { 
+          name: data[0]?.name, 
+          email: data[0]?.email, 
+          mobile: data[0]?.mobile 
+        },
+        enrolledCourses: data.filter(row => row.reg_no) // ✅ Courses filter
+      };
+      
+      res.send(result.createResult(null, profileData));
+    });
+  } catch (err) {
+    res.send(result.createResult("Invalid token")); // ✅ Token error handle
+  }
 });
+
+
 
 router.post("/change-password", (req, res) => {
   const email = req.headers.email;   // SAME AS YOUR CODE
