@@ -4,6 +4,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import { useAuth } from "../contex/AuthContext";
 import "./Navbar.css";
 import "./profiledropdown.css";
+import "./ChangePassword.css";
 
 export default function Navbar() {
   const { user } = useAuth();
