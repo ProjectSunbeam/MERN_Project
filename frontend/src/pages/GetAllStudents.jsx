@@ -2,18 +2,24 @@ import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 import { getStudents } from "../services/adminService";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
+import CourseSearch from './../components/button';
 
 function GetAllStudent() {
   const [students, setStudents] = useState([]);
+  const location = useLocation();
+
+  // 🔹 read course_id from URL (if exists)
+  const params = new URLSearchParams(location.search);
+  const courseId = params.get("course_id"); // null if not present
 
   useEffect(() => {
-    loadStudents();
-  }, []);
+    loadStudents(courseId);
+  }, [courseId]);
 
-  const loadStudents = async () => {
+  const loadStudents = async (cid = null) => {
     try {
-      const result = await getStudents();
-      console.log("API RESPONSE:", result); // DEBUG
+      const result = await getStudents(cid);
 
       if (result.status === "Success") {
         setStudents(result.data);
@@ -21,7 +27,6 @@ function GetAllStudent() {
         toast.error("Failed to load students");
       }
     } catch (error) {
-      console.error(error);
       toast.error("Server error");
     }
   };
@@ -29,11 +34,21 @@ function GetAllStudent() {
   return (
     <>
       <AdminNavbar />
-
+      <br>
+      </br>
+      <CourseSearch />
       <div className="container mt-4">
         <div className="card shadow-sm border-0">
           <div className="card-body">
-            <h4 className="mb-3">All Enrolled Students</h4>
+
+            <h4 className="mb-3">
+              Enrolled Students
+              {courseId && (
+                <span className="text-muted ms-2">
+                  (Course ID: {courseId})
+                </span>
+              )}
+            </h4>
 
             <table className="table table-hover align-middle">
               <thead className="table-light">
