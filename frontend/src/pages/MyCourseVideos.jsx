@@ -7,19 +7,17 @@ import { myCourseVideos } from "../services/courseService";
 function toEmbedUrl(url) {
   if (!url) return "";
 
-  if (url.includes("youtube.com/embed/")) {
-    return url;
-  }
+  // Already embed
+  if (url.includes("embed")) return url;
 
-  let videoId = "";
-
+  let id = "";
   if (url.includes("youtu.be/")) {
-    videoId = url.split("youtu.be/")[1].split("?")[0];
+    id = url.split("youtu.be/")[1].split("?")[0];
   } else if (url.includes("watch?v=")) {
-    videoId = url.split("watch?v=")[1].split("&")[0];
+    id = url.split("watch?v=")[1].split("&")[0];
   }
 
-  return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+  return id ? `https://www.youtube.com/embed/${id}` : "";
 }
 
 function MyCourseVideos() {
@@ -32,46 +30,59 @@ function MyCourseVideos() {
   }, [courseId]);
 
   const loadVideos = async () => {
-    const result = await myCourseVideos();
+    try {
+      const result = await myCourseVideos();
 
-    if (result.status === "Success") {
-      const filteredVideos = result.data.filter(
-        (v) => String(v.course_id) === String(courseId)
-      );
-
-      setVideos(filteredVideos);
+      if (result.status === "Success") {
+        const filtered = result.data.filter(
+          (v) => String(v.course_id) === String(courseId)
+        );
+        setVideos(filtered);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <>
       <Navbar />
+
       <div className="container mt-4">
-        <h3 className="mb-4">Course Videos</h3>
+        <h3 className="mb-4 text-center">Course Videos</h3>
 
         {loading ? (
-          <p>Loading videos...</p>
+          <p className="text-center">Loading videos...</p>
         ) : videos.length === 0 ? (
-          <p className="text-muted">No videos available for this course.</p>
+          <p className="text-muted text-center">
+            No videos available for this course.
+          </p>
         ) : (
-          videos.map((v) => (
-            <div key={v.video_id} className="card mb-4 shadow">
-              <div className="card-body">
-                <h5>{v.title}</h5>
-                <p className="text-muted">{v.description}</p>
+          <div className="row g-4">
+            {videos.map((v) => (
+              <div key={v.video_id} className="col-lg-4 col-md-6 col-sm-12">
+                <div className="card h-100 shadow-sm">
+                  <div className="card-body d-flex flex-column">
+                    <h6 className="text-center">{v.title}</h6>
 
-                <div className="ratio ratio-16x9">
-                  <iframe
-                    src={toEmbedUrl(v.youtube_url)}
-                    title={v.title}
-                    allowFullScreen
-                  ></iframe>
+                    <p className="text-muted small text-center flex-grow-1">
+                      {v.description || "No description available"}
+                    </p>
+
+                    <div className="ratio ratio-16x9">
+                      <iframe
+                        src={toEmbedUrl(v.youtube_url)}
+                        title={v.title}
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
     </>
