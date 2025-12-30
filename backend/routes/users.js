@@ -93,18 +93,23 @@ router.get("/profile", (req, res) => {
 });
 
 router.post("/change-password", (req, res) => {
-  const email = req.headers.email;
-  const { currentPassword, newPassword } = req.body;
-  
-  const hashedCurrent = cryptojs.SHA256(currentPassword).toString();
+  const email = req.headers.email;   // SAME AS YOUR CODE
+  const { newPassword } = req.body;
+
+  if (!email || !newPassword) {
+    return res.send(result.createResult("Email or password missing"));
+  }
+
   const hashedNew = cryptojs.SHA256(newPassword).toString();
-  
-  const sql = "UPDATE users SET password = ? WHERE email = ? AND password = ?";
-  pool.query(sql, [hashedNew, email, hashedCurrent], (error, data) => {
+
+  const sql = "UPDATE users SET password = ? WHERE email = ?";
+  pool.query(sql, [hashedNew, email], (error, data) => {
     if (error || data.affectedRows === 0) {
-      return res.send(result.createResult("Current password incorrect"));
+      return res.send(result.createResult("Password update failed"));
     }
-    res.send(result.createResult(null, { message: "Password changed successfully" }));
+    res.send(
+      result.createResult(null, { message: "Password changed successfully" })
+    );
   });
 });
 

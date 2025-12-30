@@ -28,7 +28,7 @@ function Login() {
         // const user = result.data;
         setLoginStatus(true);
         toast.success("Login successful");
-        if (user.role === "admin") {
+        if (user.role == "admin") {
           navigates("/admin");
         } else {
           navigates("/home");
