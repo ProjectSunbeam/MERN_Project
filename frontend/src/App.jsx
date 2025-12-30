@@ -21,7 +21,7 @@ import CourseRegister from "./pages/CourseRegister";
 import MyCourses from "./pages/MyCourses";
 import MyCourseVideos from "./pages/MyCourseVideos";
 import AddVideoForm from "./pages/AddVideoForm";
-
+import ProfileDropdown from "./components/ProfileDropdown";
 export const LoginContext = createContext();
 
 function App() {
