@@ -60,19 +60,6 @@ export async function addVideos(course_id, title, youtube_url, description) {
   return response.data;
 }
 
-export async function getStudents() {
-  const token = sessionStorage.getItem("token");
-
-  const response = await axios.get(
-    config.BASE_URL + "/admin/enrolledstudents",
-    {
-      headers: { token },
-    }
-  );
-
-  return response.data;
-}
-
 export async function getAllVideos() {
   const url = config.BASE_URL + "/video/all-videos";
 
@@ -92,6 +79,20 @@ export async function getAllCourses() {
   const url = config.BASE_URL + "/courses/all"; // make sure your backend route exists
 
   const response = await axios.get(url, {});
+
+  return response.data;
+}
+
+export async function getStudents(course_id = null) {
+  const token = sessionStorage.getItem("token");
+
+  const response = await axios.get(
+    config.BASE_URL + "/admin/enrolledstudents",
+    {
+      headers: { token },
+      params: course_id ? { course_id } : {},
+    }
+  );
 
   return response.data;
 }
