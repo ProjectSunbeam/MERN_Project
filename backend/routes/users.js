@@ -67,4 +67,46 @@ router.delete("/", (req, res) => {
   });
 });
 
+router.get("/profile", (req, res) => {
+  const email = req.headers.email;
+  const sql = `
+    SELECT u.name, u.email, u.mobile, 
+           s.reg_no, s.course_id, c.course_name, c.fees, c.start_date, c.end_date
+    FROM users u 
+    LEFT JOIN students s ON u.email = s.email
+    LEFT JOIN courses c ON s.course_id = c.course_id 
+    WHERE u.email = ?
+  `;
+  pool.query(sql, [email], (error, data) => {
+    if (error) {
+      return res.send(result.createResult(error));
+    }
+    
+    // Group courses by user
+    const profileData = {
+      user: { name: data[0]?.name, email: data[0]?.email, mobile: data[0]?.mobile },
+      enrolledCourses: data.filter(row => row.reg_no) // Only courses with reg_no
+    };
+    
+    res.send(result.createResult(null, profileData));
+  });
+});
+
+router.post("/change-password", (req, res) => {
+  const email = req.headers.email;
+  const { currentPassword, newPassword } = req.body;
+  
+  const hashedCurrent = cryptojs.SHA256(currentPassword).toString();
+  const hashedNew = cryptojs.SHA256(newPassword).toString();
+  
+  const sql = "UPDATE users SET password = ? WHERE email = ? AND password = ?";
+  pool.query(sql, [hashedNew, email, hashedCurrent], (error, data) => {
+    if (error || data.affectedRows === 0) {
+      return res.send(result.createResult("Current password incorrect"));
+    }
+    res.send(result.createResult(null, { message: "Password changed successfully" }));
+  });
+});
+
+
 module.exports = router;
