@@ -25,8 +25,6 @@ function CourseRegister() {
         mobile_no: mobile,
       });
 
-      console.log("FULL RESULT 👉", result);
-
       if (result.data?.affectedRows === 1) {
         sessionStorage.setItem("email", email);
         navigate("/my-courses");
@@ -34,7 +32,7 @@ function CourseRegister() {
         alert("Registration failed");
       }
     } catch (error) {
-      console.log("REGISTER ERROR 👉", error);
+      console.log("REGISTER ERROR", error);
       alert("Something went wrong");
     }
   };
