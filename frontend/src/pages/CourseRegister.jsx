@@ -25,16 +25,17 @@ function CourseRegister() {
         mobile_no: mobile,
       });
 
-      console.log("REGISTER RESULT:", result);
+      console.log("FULL RESULT 👉", result);
 
-      if (result.status === "Success") {
+      if (result.data?.affectedRows === 1) {
         sessionStorage.setItem("email", email);
         navigate("/my-courses");
       } else {
         alert("Registration failed");
       }
     } catch (error) {
-      console.log("REGISTER ERROR:", error);
+      console.log("REGISTER ERROR 👉", error);
+      alert("Something went wrong");
     }
   };
 
