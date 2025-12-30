@@ -50,7 +50,9 @@ function Login() {
       <div className="login-form-wrapper">
         <div className="login-card">
           <h2 className="login-heading">Log in to your account</h2>
-          <p className="login-subheading">Welcome back! Please enter your details.</p>
+          <p className="login-subheading">
+            Welcome back! Please enter your details.
+          </p>
 
           <div className="login-form-group">
             <label className="login-label">Email</label>
@@ -74,11 +76,7 @@ function Login() {
             />
           </div>
 
-          <button
-            className="login-button"
-            type="button"
-            onClick={login}
-          >
+          <button className="login-button" type="button" onClick={login}>
             Sign In
           </button>
 

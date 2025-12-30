@@ -9,9 +9,9 @@ function GetAllStudent() {
   const [students, setStudents] = useState([]);
   const location = useLocation();
 
-  // 🔹 read course_id from URL (if exists)
+
   const params = new URLSearchParams(location.search);
-  const courseId = params.get("course_id"); // null if not present
+  const courseId = params.get("course_id"); 
 
   useEffect(() => {
     loadStudents(courseId);
