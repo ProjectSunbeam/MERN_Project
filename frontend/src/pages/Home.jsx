@@ -1,75 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-import { getCourses } from "../services/userService";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const [course, setCourse] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("Home Loaded");
-    getAllCourses();
-  }, []);
-
-  const getAllCourses = async () => {
-    const token = sessionStorage.getItem("token");
-    const result = await getCourses(token);
-
-    if (result.status === "Success") {
-      setCourse(result.data);
-    } else {
-      toast.error(result.error);
-    }
-  };
 
   return (
     <>
       <Navbar />
-      <div className="container mt-3">
-        <div className="row g-4">
-  {course.map((e) => (
-    <div
-      key={e.course_id}
-      className="col-12 col-sm-6 col-md-4 col-lg-3"
-    >
-      <div className="card h-100 shadow-sm border-0">
-        
-        {/* Image Placeholder */}
-        <div
-          className="d-flex align-items-center justify-content-center bg-light"
-          style={{ height: "180px", fontWeight: "600" }}
-        >
-          Course Image
-        </div>
 
-        {/* Card Body */}
-        <div className="card-body d-flex flex-column">
-          <h5 className="card-title text-center">
-            {e.course_name}
-          </h5>
+      {/* Hero Section */}
+      <div className="container mt-5">
+        <div className="row align-items-center">
+          <div className="col-md-6">
+            <h1 className="fw-bold">Learn Skills That Matter 🚀</h1>
+            <p className="text-muted mt-3">
+              Upgrade your skills with industry-ready courses designed for
+              students and professionals.
+            </p>
 
-          <p className="text-muted text-center flex-grow-1">
-            {e.description}
-          </p>
+            <button
+              className="btn btn-primary mt-3"
+              onClick={() => navigate("/courses")}
+            >
+              Explore Courses
+            </button>
+          </div>
 
-          <h6 className="text-center mb-3">
-            ₹ {e.fees}
-          </h6>
-
-          <button
-            className="btn btn-primary mt-auto"
-            onClick={() => navigate(`/course/${e.course_id}`)}
-          >
-            View
-          </button>
+          <div className="col-md-6 text-center">
+            <div
+              className="bg-light rounded p-5"
+              style={{ fontSize: "18px", fontWeight: "600" }}
+            >
+              Learning Platform Image
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  ))}
-</div>
 
+      {/* Features Section */}
+      <div className="container mt-5">
+        <div className="row text-center">
+          <div className="col-md-4">
+            <h5>📚 Quality Content</h5>
+            <p className="text-muted">
+              Courses curated by experienced mentors.
+            </p>
+          </div>
+
+          <div className="col-md-4">
+            <h5>🎥 Video Learning</h5>
+            <p className="text-muted">Learn anytime with recorded sessions.</p>
+          </div>
+
+          <div className="col-md-4">
+            <h5>💼 Career Ready</h5>
+            <p className="text-muted">Skills aligned with industry needs.</p>
+          </div>
+        </div>
       </div>
     </>
   );
