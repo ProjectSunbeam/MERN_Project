@@ -16,29 +16,29 @@ export async function registerUser(name, email, password, mobile) {
 }
 
 export async function getCourses(token) {
-  const URL = config.BASE_URL + "/courses/all-courses";
+  const URL = config.BASE_URL + "/courses/all-active-courses";
   const headers = { token };
   const response = await axios.get(URL, { headers });
   return response.data;
 }
 
 export async function getProfile(token) {
-  const URL = config.BASE_URL + "/users/profile";  // "/profile" add kar
+  const URL = config.BASE_URL + "/users/profile"; // "/profile" add kar
   const headers = { token };
   const response = await axios.get(URL, { headers });
   return response.data;
 }
 
 //  ADD THIS FUNCTION
-export async function changePassword( newPassword, token) {
-  const URL = config.BASE_URL + "/users/change-password";  // Backend endpoint
+export async function changePassword(newPassword, token) {
+  const URL = config.BASE_URL + "/users/change-password"; // Backend endpoint
   const body = { newPassword };
-  
-  const headers = { 
+
+  const headers = {
     "Content-Type": "application/json",
-    token  // Your existing token header pattern
+    token, // Your existing token header pattern
   };
-  
+
   const response = await axios.post(URL, body, { headers });
   return response.data;
 }
