@@ -25,6 +25,7 @@ import AboutUs from "./pages/AboutUs";
 
 import ProfileDropdown from "./components/ProfileDropdown";
 import ChangePassword from "./components/ChangePassword";
+import UpdateCourse from "./pages/UpdateCourse";
 export const LoginContext = createContext();
 
 function App() {
@@ -81,7 +82,10 @@ function App() {
             path="/deletecourse"
             element={loginStatus ? <DeleteCourse /> : <Navigate to="/" />}
           />
-
+          <Route
+            path="/update-course/:id"
+            element={loginStatus ? <UpdateCourse /> : <Navigate to="/" />}
+          />
           <Route path="/course/:id" element={<CourseDetails />} />
           <Route path="/admincourse/:id" element={<AdminCourseDetails />} />
           <Route path="/course-register" element={<CourseRegister />} />

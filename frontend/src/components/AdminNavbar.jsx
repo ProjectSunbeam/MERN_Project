@@ -59,14 +59,6 @@ export default function AdminNavbar() {
                   Add Course
                 </button>
               </li>
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() => goTo("/deletecourse")}
-                >
-                  Delete Course
-                </button>
-              </li>
             </ul>
           </div>
 
