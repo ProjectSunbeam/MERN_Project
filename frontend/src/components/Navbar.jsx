@@ -136,9 +136,14 @@ export default function Navbar() {
                 </ul>
               </div>
 
-              <button className="btn btn-link ud-icon-btn">
-                <i className="bi bi-cart3"></i>
-              </button>
+              <div className="d-flex align-items-center gap-3 flex-shrink-0">
+                <Link
+                  className="navbar-brand ud-logo"
+                  to={isAdmin ? "/admin" : "/aboutus"}
+                >
+                  About Us
+                </Link>
+              </div>
             </>
           )}
 

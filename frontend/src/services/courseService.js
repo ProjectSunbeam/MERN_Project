@@ -54,3 +54,16 @@ export async function myCourseVideos() {
 
   return res.data;
 }
+
+export async function updateCourse(course_id, courseData) {
+  const URL = config.BASE_URL + `/courses/update/${course_id}`;
+  const token = sessionStorage.getItem("token");
+
+  const res = await axios.put(URL, courseData, {
+    headers: {
+      token: token,
+    },
+  });
+
+  return res.data;
+}
