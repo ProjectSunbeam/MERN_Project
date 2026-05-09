@@ -2,7 +2,7 @@ const express = require("express");
 const pool = require("../db/pool");
 const { authUser, roleAuthorization } = require("../utils/auth");
 const result = require("../utils/createResult");
-
+  
 const router = express.Router();
 
 router.get("/all-active-courses", (req, res) => {

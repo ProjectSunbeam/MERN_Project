@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { LoginContext } from "./../App";
 import { useAuth } from "../contex/AuthContext";
 import "./Login.css";
+import { Link } from "react-router-dom";
 import heroImg from "../assets/hero-Img.png";
 
 function Login() {
@@ -94,6 +95,8 @@ function Login() {
           <button className="login-button" type="button" onClick={handleLogin}>
             Sign In
           </button>
+          <p>Default Pass Is : student</p>
+          <Link to="/">Home</Link>
         </div>
       </div>
     </div>
