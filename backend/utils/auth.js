@@ -4,7 +4,7 @@ const result = require("./createResult");
 const config = require("../utils/config");
 
 function authUser(req, res, next) {
-  const path = req.url;
+  const path = req.originalUrl.split("?")[0];
   console.log(path);
   if (
     path == "/users/signin" ||
